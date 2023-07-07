@@ -9,6 +9,7 @@ import 'primeicons/primeicons.css';
 import Navbar from './Components/Navbar.componet';
 import Landingpage from './pages/Landing.pages';
 import CreateNew from './pages/CreateNew.pages';
+import Deploy from './pages/Deploy.pages';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Landingpage />}/>
           <Route path='/crete-new-contract' element={<CreateNew/>}/>
+          <Route path='/go-to-contract' element={<Deploy/>} />
         </Routes>
       </BrowserRouter>
     </div>
