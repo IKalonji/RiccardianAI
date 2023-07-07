@@ -15,7 +15,8 @@ const Deploy = () => {
       label: 'Contracts',
       command: (event) => {
         toast.current.show({ severity: 'info', summary: 'First Step', detail: event.item.label });
-        setRenderState("Contracts")
+        setRenderState("Contracts");
+        
       },
     },
     {
@@ -45,19 +46,33 @@ const Deploy = () => {
     }
   }, [showConfetti]);
 
+  function ContractsStep(){
+    //the elemts that are rendered below are meant to show the human readable contract as well as the smartcontract
+    return(
+        <div>
+            <Button label="Contract" icon="pi pi-plus" className="mr-2"  text raised/>
+        </div>
+    )
+  }
+
   return (
-    <div>
+    <div className=''>
+        <div className='spacer' style={{height:"20px"}}></div>
       <div className="card">
+        
         <Toast ref={toast}></Toast>
         <Steps model={items} activeIndex={activeIndex} onSelect={(e) => setActiveIndex(e.index)} readOnly={false} />
-        { renderState === "Contracts" ?(<Button label="Contract" icon="pi pi-plus" className="mr-2"  text raised/>):
-        renderState === "Deploying" ? (<Button label="Deploying" icon="pi pi-plus" className="mr-2"  text raised/>):
-        renderState === "Done" ? (<Button label="Done" icon="pi pi-plus" className="mr-2"  text raised/>):
-        (<Button label="DNothing to show" icon="pi pi-plus" className="mr-2"  text raised/>)
-        }
-        {showConfetti && (
-          <Confetti width={window.innerWidth} height={window.innerHeight} />
-        )}
+
+        <div className='flex align-items-center justify-content-center font-bold border-round m-2'>
+            { renderState === "Contracts" ?(<ContractsStep />):
+            renderState === "Deploying" ? (<Button label="Deploying" icon="pi pi-plus" className="mr-2"  text raised/>):
+            renderState === "Done" ? (<Button label="Done" icon="pi pi-plus" className="mr-2"  text raised/>):
+            (<ContractsStep />)
+            }
+            {showConfetti && (
+            <Confetti width={window.innerWidth} height={window.innerHeight} />
+            )}
+        </div>
       </div>
     </div>
   );
