@@ -8,6 +8,7 @@ import 'primeicons/primeicons.css';
 
 import Navbar from './Components/Navbar.componet';
 import Landingpage from './pages/Landing.pages';
+import CreateNew from './pages/CreateNew.pages';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path='/' element={<Landingpage />}/>
+          <Route path='/crete-new-contract' element={<CreateNew/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -62,7 +62,7 @@ function Navbar() {
       <Button severity="secondary" text>
       <i className='pi pi-building' style={{ fontSize: '2rem' }}></i>
       <label>
-        InfraDAO
+        Riccardin AI
       </label>
       </Button>
 
@@ -74,11 +74,10 @@ function Navbar() {
     settoolbarOptions(
       (
         <>
-          <Button label="Submit project" icon="pi pi-plus" className="mr-2" onClick={() => {NavigateToPage("/submit")}} text />
-          <Button label="View" icon="pi pi-image" className="mr-2" onClick={() => {NavigateToPage("/user/view-projects")}} text />
-          <Button label="DEX" className="mr-2" onClick={() => {NavigateToPage("/dex-page")}} text />
-          <SplitButton label="DAO Members" icon="pi pi-view" model={items} className="mr-2" text severity='success'></SplitButton>
-          <Button icon="pi pi-user" rounded outlined severity="secondary" aria-label="User" onClick={() => {NavigateToPage("/profile")}} tooltip='Profile page' tooltipOptions={{ position: 'left' }} />
+          <Button label="Create new" icon="pi pi-plus" className="mr-2" onClick={() => {NavigateToPage("/crete-new-contract")}} text/>
+          <Button label="Go to contract" icon="pi pi-file" className="mr-2" onClick={() => {NavigateToPage("/user/view-projects")}} text />
+          <Button label="Interact with contract" icon="pi pi-arrow-right-arrow-left" className="mr-2" onClick={() => {NavigateToPage("/dex-page")}} text />
+          {/* <SplitButton label="DAO Members" icon="pi pi-view" model={items} className="mr-2" text severity='success'></SplitButton> */}
         </>
       )
     )
