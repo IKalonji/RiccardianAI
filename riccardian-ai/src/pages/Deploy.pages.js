@@ -12,17 +12,20 @@ const Deploy = () => {
 
   const items = [
     {
-      label: 'Contracts',
-      command: (event) => {
-        toast.current.show({ severity: 'info', summary: 'First Step', detail: event.item.label });
-        setRenderState("Contracts");
-        
-      },
+        label: 'Contracts',
+        command: (event) => {
+          toast.current.show({ severity: 'info', summary: 'First Step', detail: event.item.label });
+          ContractsStep();
+          setActiveIndex(1); // Set activeIndex to 1 (index of the "Deploying" step)
+          setRenderState("Contracts");
+        },
     },
     {
       label: 'Deploying',
       command: (event) => {
         toast.current.show({ severity: 'info', summary: 'Second Step', detail: event.item.label });
+        DeployingStep();
+        setActiveIndex(2);
         setRenderState("Deploying")
       },
     },
@@ -50,7 +53,15 @@ const Deploy = () => {
     //the elemts that are rendered below are meant to show the human readable contract as well as the smartcontract
     return(
         <div>
-            <Button label="Contract" icon="pi pi-plus" className="mr-2"  text raised/>
+            <Button label="Contract step" icon="pi pi-plus" className="mr-2" onClick={() => {setActiveIndex(1);}}  text raised/>
+        </div>
+    )
+  }
+
+  function DeployingStep(){
+    return(
+        <div>
+            <Button label="Deploy step" icon="pi pi-minus" className="mr-2" onClick={() => {setActiveIndex(2);}}  text raised/>
         </div>
     )
   }
@@ -62,15 +73,19 @@ const Deploy = () => {
         
         <Toast ref={toast}></Toast>
         <Steps model={items} activeIndex={activeIndex} onSelect={(e) => setActiveIndex(e.index)} readOnly={false} />
+        {showConfetti && (
+          <Confetti width={window.innerWidth} height={window.innerHeight} />
+        )}
 
         <div className='flex align-items-center justify-content-center font-bold border-round m-2'>
-            { renderState === "Contracts" ?(<ContractsStep />):
-            renderState === "Deploying" ? (<Button label="Deploying" icon="pi pi-plus" className="mr-2"  text raised/>):
-            renderState === "Done" ? (<Button label="Done" icon="pi pi-plus" className="mr-2"  text raised/>):
-            (<ContractsStep />)
-            }
-            {showConfetti && (
-            <Confetti width={window.innerWidth} height={window.innerHeight} />
+            {activeIndex === 0 && renderState === "Contracts" ? (
+            <ContractsStep />
+            ) : activeIndex === 1 && renderState === "Deploying" ? (
+            <DeployingStep />
+            ) : activeIndex === 2 && renderState === "Done" ? (
+            <Button label="Done" icon="pi pi-plus" className="mr-2" text raised />
+            ) : (
+            <ContractsStep />
             )}
         </div>
       </div>

@@ -73,6 +73,11 @@ const CreateNew = () => {
                             <label htmlFor="clause" className="block text-900 font-medium mb-2">Clause</label>
                             <InputText id="clause" placeholder="Enter the clause" className="w-full mb-3"/>
                             <div className="spacer" style={{height:"20px"}}></div>
+
+                            <div className="flex align-items-center justify-content-center font-bold border-round m-2">
+                                <Button label="Add new" raised  />
+                            </div>
+
                         </div>
                     </div>
                 </div>

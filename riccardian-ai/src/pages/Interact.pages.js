@@ -3,47 +3,12 @@ import { Skeleton } from 'primereact/skeleton';
 
 const Interact = () => {
   return (
-    <div>
-        <div className="card">
-            <div className="border-round border-1 surface-border p-4">
-                <ul className="m-0 p-0 list-none">
-                    <li className="mb-3">
-                        <div className="flex">
-                            <Skeleton shape="circle" size="4rem" className="mr-2"></Skeleton>
-                            <div style={{ flex: '1' }}>
-                                <Skeleton width="100%" className="mb-2"></Skeleton>
-                                <Skeleton width="75%"></Skeleton>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="mb-3">
-                        <div className="flex">
-                            <Skeleton shape="circle" size="4rem" className="mr-2"></Skeleton>
-                            <div style={{ flex: '1' }}>
-                                <Skeleton width="100%" className="mb-2"></Skeleton>
-                                <Skeleton width="75%"></Skeleton>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="mb-3">
-                        <div className="flex">
-                            <Skeleton shape="circle" size="4rem" className="mr-2"></Skeleton>
-                            <div style={{ flex: '1' }}>
-                                <Skeleton width="100%" className="mb-2"></Skeleton>
-                                <Skeleton width="75%"></Skeleton>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="flex">
-                            <Skeleton shape="circle" size="4rem" className="mr-2"></Skeleton>
-                            <div style={{ flex: '1' }}>
-                                <Skeleton width="100%" className="mb-2"></Skeleton>
-                                <Skeleton width="75%"></Skeleton>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+    <div className='card'>
+        <div className="card flex align-items-center justify-content-center font-bold border-round m-2">
+            <div className="border-round border-1 surface-border p-4 surface-card p-4 shadow-2 border-round w-full lg:w-6">
+                <div className='text-center mb-5'>
+                <div className="text-900 text-3xl font-medium mb-3">These are the functions in the smartcontract that can be called</div>
+                </div>
             </div>
         </div>
     </div>
