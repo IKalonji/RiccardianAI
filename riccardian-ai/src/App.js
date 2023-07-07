@@ -10,6 +10,7 @@ import Navbar from './Components/Navbar.componet';
 import Landingpage from './pages/Landing.pages';
 import CreateNew from './pages/CreateNew.pages';
 import Deploy from './pages/Deploy.pages';
+import Interact from './pages/Interact.pages';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path='/' element={<Landingpage />}/>
           <Route path='/crete-new-contract' element={<CreateNew/>}/>
           <Route path='/go-to-contract' element={<Deploy/>} />
+          <Route path='/interact-with-contract' element={<Interact/>} />
         </Routes>
       </BrowserRouter>
     </div>
