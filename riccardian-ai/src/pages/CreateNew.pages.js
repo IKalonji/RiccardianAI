@@ -93,12 +93,7 @@ const CreateNew = () => {
           </Dialog>
           
           {selectedContent === "paste" ? (<PasteContractContent />) : selectedContent === "manually" ? (
-              <ManuallyEnterContractContent />
-            ) :(
-                <p>
-
-                </p>
-            )}
+              <ManuallyEnterContractContent />) :(<PasteContractContent />)}
         </div>
       );
       
