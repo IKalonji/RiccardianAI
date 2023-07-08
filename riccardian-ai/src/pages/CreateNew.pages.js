@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Editor } from "primereact/editor";
-import { InputText } from "primereact/inputtext";
+import { useNavigate } from "react-router-dom";
 import { Toast } from 'primereact/toast';
 
 const CreateNew = () => {
@@ -10,10 +10,11 @@ const CreateNew = () => {
     const [selectedContent, setSelectedContent] = useState(null);
     const toast = useRef(null);
     const [editorText, setEditorText] = useState('');
+    const navigate = useNavigate()
 
     const footerContent = (
         <div>
-            <Button label="Continue" icon="pi pi-arrow-circle-right" onClick={() => { setSelectedContent("manually"); setVisible(false); }} text raised autoFocus />
+            <Button label="Continue" icon="pi pi-arrow-circle-right" onClick={() => { setSelectedContent("manually"); setVisible(false); navigate("/go-to-contract") }} text raised autoFocus />
         </div>
     );
 
@@ -35,7 +36,7 @@ const CreateNew = () => {
             toast.current.show({ severity: 'warn', summary: 'Field not filled in', detail: "please fill in the prompt, and paste the contract" });
         }else {
             setVisible(true)
-            localStorage.setItem("Contract", `${editorText}`);
+            localStorage.setItem("Contract", `${editorText}`);            
         }
       }
       
