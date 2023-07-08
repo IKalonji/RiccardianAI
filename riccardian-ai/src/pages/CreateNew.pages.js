@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Editor } from "primereact/editor";
 import { InputText } from "primereact/inputtext";
+import { Toast } from 'primereact/toast';
 
 const CreateNew = () => {
     const [visible, setVisible] = useState(false);
     const [selectedContent, setSelectedContent] = useState(null);
-
-    const [editorText, setEditorText] = useState('')
+    const toast = useRef(null);
+    const [editorText, setEditorText] = useState('');
 
     const footerContent = (
         <div>
-            <Button label="Paste" icon="pi pi-file-import" onClick={() => { setSelectedContent("paste"); setVisible(false); }} autoFocus />
-            <Button label="Manually enter content" icon="pi pi-file-edit" onClick={() => { setSelectedContent("manually"); setVisible(false); }} autoFocus />
+            <Button label="Continue" icon="pi pi-arrow-circle-right" onClick={() => { setSelectedContent("manually"); setVisible(false); }} text raised autoFocus />
         </div>
     );
 
@@ -28,9 +28,20 @@ const CreateNew = () => {
       };
     
       const header = renderHeader();
+
+      const CheckEditorcontent = (event) => {
+        if (!editorText){
+            console.log("editor is not filled");
+            toast.current.show({ severity: 'warn', summary: 'Field not filled in', detail: "please fill in the prompt, and paste the contract" });
+        }else {
+            setVisible(true)
+            localStorage.setItem("Contract", `${editorText}`);
+        }
+      }
       
     return (
         <div>
+        <Toast ref={toast}></Toast>
           <Dialog header="Here is your Contract you may save and review it" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
               <h5 className="m-0">
                 {editorText}
@@ -48,7 +59,7 @@ const CreateNew = () => {
                     <div className="spacer" style={{height:"20px"}}></div>
                     <Editor value={editorText} onTextChange={(e) => { setEditorText(e.textValue) }} headerTemplate={header} style={{ height: '320px' }} />
                     <div className="spacer" style={{height:"20px"}}></div>
-                    <Button label="Save and review" icon="pi pi-cloud-upload" className="w-full"  onClick={() => setVisible(true)}/>
+                    <Button label="Save and review" icon="pi pi-cloud-upload" className="w-full"  onClick={CheckEditorcontent}/>
                  </div>
             </div>
         </div>
