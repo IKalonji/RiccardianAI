@@ -60,7 +60,13 @@ function Navbar() {
   let startContent = (
     <a className="p-button-text" style={{ cursor: "pointer" }} onClick={() => {navigate("/")}}>
       <Button severity="secondary" text>
-      <i className='pi pi-building' style={{ fontSize: '2rem' }}></i>
+      {/* <i className='pi pi-building' style={{ fontSize: '2rem' }}></i> */}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-2rem">
+          <path
+            d="M12 0C5.383 0 0 5.383 0 12c0 6.617 5.383 12 12 12s12-5.383 12-12c0-6.617-5.383-12-12-12zm0 22.737c-6.132 0-11.106-4.973-11.106-11.106C.894 5.5 5.868.526 12 .526s11.106 4.973 11.106 11.105c0 6.133-4.974 11.106-11.106 11.106zm-.63-6.16l-1.247-1.1c.998-1.498 1.636-3.262 1.636-5.23 0-2.86-1.577-4.437-4.437-4.437-2.861 0-4.438 1.577-4.438 4.437 0 2.87 1.577 4.448 4.438 4.448 1.103 0 2.132-.305 3.02-.854l1.348 1.247c-1.34.817-2.94 1.302-4.73 1.302-4.965 0-8.975-4.01-8.975-8.975C2.024 4.01 6.034 0 11 0s8.975 4.01 8.975 8.975c0 4.38-3.228 8.048-7.448 8.778z"
+            fill="#808080"
+          />
+        </svg>
       <label>
         Riccardin AI
       </label>
@@ -100,7 +106,7 @@ function Navbar() {
           toast.current.show({ severity: 'success', summary: 'Connected', detail: `'Successfully connected to wallet'`, life: 3000 });
         })
         .catch((error) => {
-          toast.current.show({ severity: 'error', summary: 'Error', detail: 'Cannot display the page until user is connected to metamask and is using Hedera testnet as well as the Arkhia rpc', life: 3000 });
+          toast.current.show({ severity: 'error', summary: 'Error', detail: 'Cannot display the page until user is connected to flow', life: 3000 });
         });
     }
   }

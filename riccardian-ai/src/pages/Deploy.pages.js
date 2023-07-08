@@ -16,13 +16,33 @@ const Deploy = () => {
     
     console.log("First step");
     return (
-      <div>
+      <div className=''>
                 
-        <div className="flex align-items-center justify-content-center">
+        <div className="flex align-items-center justify-content-center" >
             <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
                 <div className="text-center mb-5">
-                    <img src="/demo/images/blocks/logos/hyper.svg" alt="hyper" height={50} className="mb-3" />
+                <img src="https://blocks.primereact.org/demo/images/blocks/logos/hyper.svg" alt="hyper" height={50} className="mb-3" />
                     <div className="text-900 text-3xl font-medium mb-3">Here is the humanly readable contract</div>
+                    <span className="text-600 font-medium line-height-3">{contract}</span>
+                    
+                </div>
+
+                <div>
+                <span className="text-600 font-medium line-height-3">The Machine readable contract is below</span>
+
+                </div>
+            </div>
+        </div>
+        <div style={{height:"25px"}}></div>
+        {/* Machine readable contract */}
+
+      
+
+        <div className=" flex align-items-center justify-content-center" >
+            <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+                <div className="text-center mb-5">
+                    <img src="https://blocks.primereact.org/demo/images/blocks/logos/hyper.svg" alt="hyper" height={50} className="mb-3" />
+                    <div className="text-900 text-3xl font-medium mb-3">Here is the Machine readable contract</div>
                     <span className="text-600 font-medium line-height-3">{contract}</span>
                     
                 </div>
@@ -35,22 +55,22 @@ const Deploy = () => {
                     className="mr-2"
                     onClick={() => setActiveIndex(1)}
                     text
-                    raised
-                    />
-
+                    raised/>
                 </div>
             </div>
         </div>
-    
-
+        
+        
       </div>
     );
   };
 
   const DeployingStep = () => {
     console.log("seccond step");
+
     return (
       <div>
+        
         <h2>Deploying Step</h2>
         <Button
           label="Next Step"
@@ -64,6 +84,7 @@ const Deploy = () => {
   };
 
   const DoneStep = () => {
+
     return (
       <div>
         <h2>Done Step</h2>
@@ -82,11 +103,6 @@ const Deploy = () => {
     {
       label: 'Contracts',
       command: () => {
-        toast.current.show({
-          severity: 'info',
-          summary: 'First Step',
-          detail: 'Contracts',
-        });
         setRenderState('Contracts');
         return ContractsStep()
       },
@@ -94,11 +110,6 @@ const Deploy = () => {
     {
       label: 'Deploying',
       command: () => {
-        toast.current.show({
-          severity: 'info',
-          summary: 'Second Step',
-          detail: 'Deploying',
-        });
         setRenderState('Deploying');
        DeployingStep()
       },
@@ -106,11 +117,6 @@ const Deploy = () => {
     {
       label: 'Done',
       command: () => {
-        toast.current.show({
-          severity: 'info',
-          summary: 'Third Step',
-          detail: 'Done',
-        });
         setShowConfetti(true);
         setRenderState('Done');
         return DoneStep()
@@ -143,7 +149,7 @@ const Deploy = () => {
           <Confetti width={window.innerWidth} height={window.innerHeight} />
         )}
 
-        <div className="flex align-items-center justify-content-center font-bold border-round m-2">
+        <div className="">
           {activeIndex === 0 && renderState === 'Contracts' ? (
             <ContractsStep />
           ) : activeIndex === 1 && renderState === 'Deploying' ? (

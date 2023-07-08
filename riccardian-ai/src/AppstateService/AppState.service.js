@@ -1,8 +1,6 @@
 import { MetaMaskSDK } from '@metamask/sdk';
 import { ethers } from 'ethers';
-import Web3 from "web3";
-import BloctoSDK from "@blocto/sdk";
-import SignClient from '@walletconnect/sign-client'
+import * as fcl from "@onflow/fcl";
 
 export class AppStateService {
 
@@ -13,52 +11,27 @@ export class AppStateService {
         }
         AppStateService.instance = this;
         console.log("instance created");
-
-        // const MMSDK = new MetaMaskSDK();
-        // this.ethereum = MMSDK.getProvider();
-        // this.provider = new ethers.BrowserProvider(this.ethereum);
-
-        this.bloctoSDK = new BloctoSDK({
-          ethereum: {
-            chainId: "0x5", // (required) chainId to be used
-            rpc: `https://goerli.infura.io/v3/ef5a5728e2354955b562d2ffa4ae5305`, // (required for Ethereum) JSON RPC endpoint
-          },
-        });
-
-        this.web3 = new Web3(this.bloctoSDK.ethereum);
-        
+        fcl.config({
+          "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn", // Endpoint set to Testnet
+          "accessNode.api": "https://rest-testnet.onflow.org"
+        })
+        const MMSDK = new MetaMaskSDK();
+        this.ethereum = MMSDK.getProvider();
+        this.provider = new ethers.BrowserProvider(this.ethereum);
         this.walletAddress = "";
         this.connected = false;
 
     }
 
-    // async connectToFlowWallet(){
-    //   console.log("Connecting to flow");
-    //   const accounts = await this.bloctoSDK.ethereum.request({
-    //     method: "eth_requestAccounts"
-    //   });
-    //   this.walletAddress = accounts[0]
-    //   this.connected = true;
-    //   const event = new Event("loggedIn");
-    //   window.dispatchEvent(event);
-    // }
-
     async connectToFlowWallet(){
-      console.log("Connecting to flow");
-      this.signClient = await SignClient.init({
-        projectId: "07f8da139aaf5f1656c0abd166744ea1",
-        relayUrl: 'wss://relay.walletconnect.com',
-        metadata: {
-          name: 'Awesome Wallet',
-          description: 'Awesome Wallet with FCL Support for WalletConnect',
-          url: 'https://deeplink.awesome-wallet.com/',
-          icons: ['https://avatars.githubusercontent.com/u/37784886']
-        }
-      })
-      // this.walletAddress = accounts[0]
+      alert("Calling flow connect")
+      await fcl.authenticate().then(async ()=>{}).catch((error)=>{alert(error)});
+      let user = await fcl.currentUser.snapshot(); alert(user)
+      console.log(user);
       this.connected = true;
       const event = new Event("loggedIn");
       window.dispatchEvent(event);
+      this.contractIsUserMemeber();
     }
 
     async connectToMetamask(){
