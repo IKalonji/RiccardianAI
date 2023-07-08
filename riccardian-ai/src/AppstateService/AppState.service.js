@@ -2,6 +2,7 @@ import { MetaMaskSDK } from '@metamask/sdk';
 import { ethers } from 'ethers';
 import Web3 from "web3";
 import BloctoSDK from "@blocto/sdk";
+import SignClient from '@walletconnect/sign-client'
 
 export class AppStateService {
 
@@ -31,12 +32,30 @@ export class AppStateService {
 
     }
 
+    // async connectToFlowWallet(){
+    //   console.log("Connecting to flow");
+    //   const accounts = await this.bloctoSDK.ethereum.request({
+    //     method: "eth_requestAccounts"
+    //   });
+    //   this.walletAddress = accounts[0]
+    //   this.connected = true;
+    //   const event = new Event("loggedIn");
+    //   window.dispatchEvent(event);
+    // }
+
     async connectToFlowWallet(){
       console.log("Connecting to flow");
-      const accounts = await this.bloctoSDK.ethereum.request({
-        method: "eth_requestAccounts"
-      });
-      this.walletAddress = accounts[0]
+      this.signClient = await SignClient.init({
+        projectId: "07f8da139aaf5f1656c0abd166744ea1",
+        relayUrl: 'wss://relay.walletconnect.com',
+        metadata: {
+          name: 'Awesome Wallet',
+          description: 'Awesome Wallet with FCL Support for WalletConnect',
+          url: 'https://deeplink.awesome-wallet.com/',
+          icons: ['https://avatars.githubusercontent.com/u/37784886']
+        }
+      })
+      // this.walletAddress = accounts[0]
       this.connected = true;
       const event = new Event("loggedIn");
       window.dispatchEvent(event);

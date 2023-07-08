@@ -5,7 +5,7 @@ import Confetti from 'react-confetti';
 import { Button } from 'primereact/button';
 
 const Deploy = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(null);
   const toast = useRef(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [renderState, setRenderState] = useState(null)
@@ -16,7 +16,7 @@ const Deploy = () => {
         command: (event) => {
           toast.current.show({ severity: 'info', summary: 'First Step', detail: event.item.label });
           ContractsStep();
-          setActiveIndex(1); // Set activeIndex to 1 (index of the "Deploying" step)
+          setActiveIndex(0); // Set activeIndex to 1 (index of the "Deploying" step)
           setRenderState("Contracts");
         },
     },
@@ -25,7 +25,7 @@ const Deploy = () => {
       command: (event) => {
         toast.current.show({ severity: 'info', summary: 'Second Step', detail: event.item.label });
         DeployingStep();
-        setActiveIndex(2);
+        setActiveIndex(1);
         setRenderState("Deploying")
       },
     },
@@ -61,7 +61,7 @@ const Deploy = () => {
   function DeployingStep(){
     return(
         <div>
-            <Button label="Deploy step" icon="pi pi-minus" className="mr-2" onClick={() => {setActiveIndex(2);}}  text raised/>
+            <Button label="Deploy step"  className="mr-2" onClick={() => {setActiveIndex(2);}}  text raised/>
         </div>
     )
   }
@@ -85,7 +85,7 @@ const Deploy = () => {
             ) : activeIndex === 2 && renderState === "Done" ? (
             <Button label="Done" icon="pi pi-plus" className="mr-2" text raised />
             ) : (
-            <ContractsStep />
+                <Steps model={items} activeIndex={activeIndex} onSelect={(e) => setActiveIndex(e.index)} readOnly={false} />
             )}
         </div>
       </div>
