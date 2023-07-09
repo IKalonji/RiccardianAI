@@ -13,7 +13,8 @@ export class AppStateService {
         console.log("instance created");
         fcl.config({
           "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn", // Endpoint set to Testnet
-          "accessNode.api": "https://rest-testnet.onflow.org"
+          "accessNode.api": "https://rest-testnet.onflow.org",
+          "discovery.authn.endpoint": "https://fcl-discovery.onflow.org/api/testnet/authn"
         })
         const MMSDK = new MetaMaskSDK();
         this.ethereum = MMSDK.getProvider();
@@ -25,13 +26,15 @@ export class AppStateService {
 
     async connectToFlowWallet(){
       alert("Calling flow connect")
-      await fcl.authenticate().then(async ()=>{}).catch((error)=>{alert(error)});
+      await fcl.authenticate().then(async ()=>{
+        this.connected = true;
+      }).catch((error)=>{alert(error)});
       let user = await fcl.currentUser.snapshot(); alert(user)
       console.log(user);
-      this.connected = true;
+      
       const event = new Event("loggedIn");
       window.dispatchEvent(event);
-      this.contractIsUserMemeber();
+      // this.contractIsUserMemeber();
     }
 
     async connectToMetamask(){

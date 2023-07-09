@@ -4,60 +4,81 @@ import { Steps } from 'primereact/steps';
 import { Toast } from 'primereact/toast';
 import Confetti from 'react-confetti';
 import { Button } from 'primereact/button';
+import { Editor } from "primereact/editor";
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const Deploy = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [renderState, setRenderState] = useState(null);
-  const contract = localStorage.getItem("Contract")
+  const contract = localStorage.getItem("Contract");
+//   const [showConfetti, setShowConfetti] = useState(false);
+
+  const [deploying, setDeploying] = useState(false);
+
+  useEffect(() => {
+
+    if (deploying) {
+        // setDeploying(true)
+      const timer = setTimeout(() => {
+        // Perform the action after 15 seconds
+        setRenderState("Done");
+        setActiveIndex(2);
+        setShowConfetti(false);
+        setDeploying(false);
+      }, 5000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [deploying]);
+  
 
   const ContractsStep = () => {
     
     console.log("First step");
     return (
       <div className=''>
-                
-        <div className="flex align-items-center justify-content-center" >
-            <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-                <div className="text-center mb-5">
-                <img src="https://blocks.primereact.org/demo/images/blocks/logos/hyper.svg" alt="hyper" height={50} className="mb-3" />
-                    <div className="text-900 text-3xl font-medium mb-3">Here is the humanly readable contract</div>
-                    <span className="text-600 font-medium line-height-3">{contract}</span>
-                    
+        <div style={{height:"35px"}}></div>
+        
+        <div className="">
+
+            <div className="grid">
+                <div className=" surface-card p-4 shadow-2 border-round w-full lg:w-5">
+                    <div className="align-self-start p-3 h-full">
+                        <div className="shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
+                            <div className="text-900 font-medium text-xl mb-2">Below is the human readable contract</div>
+
+                            <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
+                            <Editor value={contract} readOnly style={{ height: '320px' }} />
+                            <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />                            
+                            
+                        </div>
+                    </div>
                 </div>
 
-                <div>
-                <span className="text-600 font-medium line-height-3">The Machine readable contract is below</span>
-
+                <div className=" surface-card p-4 shadow-2 border-round w-full lg:w-5">
+                    <div className="align-self-end p-3 h-full">
+                        <div className="shadow-2 p-3 flex flex-column" style={{ borderRadius: '6px' }}>
+                            <div className="text-900 font-medium text-xl mb-2">Below is the machine readable smartcontract</div>
+                            
+                            <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
+                            <Editor value={contract} readOnly style={{ height: '320px' }} />
+                            <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div style={{height:"25px"}}></div>
-        {/* Machine readable contract */}
+    
 
-      
-
-        <div className=" flex align-items-center justify-content-center" >
-            <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-                <div className="text-center mb-5">
-                    <img src="https://blocks.primereact.org/demo/images/blocks/logos/hyper.svg" alt="hyper" height={50} className="mb-3" />
-                    <div className="text-900 text-3xl font-medium mb-3">Here is the Machine readable contract</div>
-                    <span className="text-600 font-medium line-height-3">{contract}</span>
-                    
-                </div>
-
-                <div>
-                    <h2>Contracts Step</h2>
-                    <Button
-                    label="Next Step"
-                    icon="pi pi-plus"
-                    className="mr-2"
-                    onClick={() => setActiveIndex(1)}
-                    text
-                    raised/>
-                </div>
-            </div>
+        <div className='flex flex-column'>
+            
+            <Button
+            label="Next Step"
+            icon="pi pi-plus"
+            className="flex align-items-center justify-content-center mr-2"
+            onClick={() => (setActiveIndex(1), setRenderState("Deploying"))}/>
         </div>
         
         
@@ -67,37 +88,82 @@ const Deploy = () => {
 
   const DeployingStep = () => {
     console.log("seccond step");
+    // return (
+    //   <div className='flex align-items-center justify-content-center'>
+    //     <h2> </h2>
+    //     <div style={{height:"30px"}}></div>
 
-    return (
-      <div>
+    //     <div className='card'>
+    //     <div className="card flex justify-content-center">
+    //             <ProgressSpinner />
+    //         </div>
+    //     <Button
+    //       label="Next Step"
+    //       className="mr-2"
+    //       onClick={() => (setActiveIndex(2), setRenderState("Done"), setShowConfetti(true))}
+    //       text
+    //       raised
+    //     />
+
+    //     </div>
+  
+    //   </div>
+    // );
+
+    const handleButtonClick = () => {
+        setDeploying(true);
         
-        <h2>Deploying Step</h2>
-        <Button
-          label="Next Step"
-          className="mr-2"
-          onClick={() => setActiveIndex(2)}
-          text
-          raised
-        />
-      </div>
-    );
+      };
+    
+      return (
+        <div className='flex align-items-center justify-content-center'>
+          <h2>Deploying Step</h2>
+          {deploying ? (
+            <>
+              <ProgressSpinner style={{ width: '50px', height: '50px' }} strokeWidth="4" animationDuration=".5s" />
+              <br/>
+              <p>Deploying, please wait a few seconds...</p>
+            </>
+          ) : (
+            <>
+              {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+              <Button
+                label="Start deploying"
+                className="mr-2"
+                onClick={handleButtonClick}
+                text
+                raised
+              />
+            </>
+          )}
+        </div>
+      );
+    
   };
 
   const DoneStep = () => {
-
+    
     return (
       <div>
         <h2>Done Step</h2>
+        {showConfetti && (
+          <Confetti width={window.innerWidth} height={window.innerHeight} />
+          && setShowConfetti(false)
+        )}
         <Button
           label="Restart"
           className="mr-2"
-          onClick={() => setActiveIndex(0)}
+          onClick={() => {
+            setActiveIndex(0);
+            setShowConfetti(false);
+          }}
           text
           raised
         />
       </div>
     );
   };
+  
 
   const items = [
     {
@@ -129,10 +195,11 @@ const Deploy = () => {
       const timer = setTimeout(() => {
         setShowConfetti(false);
       }, 4000);
-
+  
       return () => clearTimeout(timer);
     }
   }, [showConfetti]);
+  
 
   return (
     <div>
