@@ -88,27 +88,6 @@ const Deploy = () => {
 
   const DeployingStep = () => {
     console.log("seccond step");
-    // return (
-    //   <div className='flex align-items-center justify-content-center'>
-    //     <h2> </h2>
-    //     <div style={{height:"30px"}}></div>
-
-    //     <div className='card'>
-    //     <div className="card flex justify-content-center">
-    //             <ProgressSpinner />
-    //         </div>
-    //     <Button
-    //       label="Next Step"
-    //       className="mr-2"
-    //       onClick={() => (setActiveIndex(2), setRenderState("Done"), setShowConfetti(true))}
-    //       text
-    //       raised
-    //     />
-
-    //     </div>
-  
-    //   </div>
-    // );
 
     const handleButtonClick = () => {
         setDeploying(true);
@@ -117,12 +96,20 @@ const Deploy = () => {
     
       return (
         <div className='flex align-items-center justify-content-center'>
-          <h2>Deploying Step</h2>
+          <div style={{height:"170px"}}></div>
+
           {deploying ? (
+            
             <>
-              <ProgressSpinner style={{ width: '50px', height: '50px' }} strokeWidth="4" animationDuration=".5s" />
+                <div className='card'>
+                    <div className='card flex justify-content-center'>
+                    <ProgressSpinner style={{ width: '50px', height: '50px' }} strokeWidth="4" animationDuration=".5s" />
+                    
+                    </div>
+                </div>
+              
               <br/>
-              <p>Deploying, please wait a few seconds...</p>
+              <p>{" "}Deploying, please wait a few seconds...</p>
             </>
           ) : (
             <>
@@ -145,21 +132,30 @@ const Deploy = () => {
     
     return (
       <div>
-        <h2>Done Step</h2>
-        {showConfetti && (
-          <Confetti width={window.innerWidth} height={window.innerHeight} />
-          && setShowConfetti(false)
-        )}
-        <Button
-          label="Restart"
-          className="mr-2"
-          onClick={() => {
-            setActiveIndex(0);
-            setShowConfetti(false);
-          }}
-          text
-          raised
-        />
+        <div class="flex flex-column">
+            <div class="flex align-items-center justify-content-center h-4rem  font-bold border-round m-2">
+            <div className="text-900 font-medium text-xl mb-2">Well done! You have Successfully deployed a riccardian contract</div>
+            </div>
+
+            <div class="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
+                {
+                showConfetti && (
+                    setShowConfetti(true) &&
+                    <Confetti width={window.innerWidth} height={window.innerHeight} />
+                    && setShowConfetti(false))}
+                <Button
+                    label="Restart"
+                    className="mr-2"
+                    onClick={() => {
+                    setActiveIndex(0);
+                    setShowConfetti(false);
+                    }}
+                    text
+                    raised/>
+            </div>
+        </div>
+         
+       
       </div>
     );
   };
@@ -212,9 +208,11 @@ const Deploy = () => {
           onSelect={(e) => setActiveIndex(e.index)}
           readOnly={false}
         />
+
         {showConfetti && (
-          <Confetti width={window.innerWidth} height={window.innerHeight} />
-        )}
+                <Confetti width={window.innerWidth} height={window.innerHeight} />
+              )}
+
 
         <div className="">
           {activeIndex === 0 && renderState === 'Contracts' ? (
@@ -222,7 +220,11 @@ const Deploy = () => {
           ) : activeIndex === 1 && renderState === 'Deploying' ? (
             <DeployingStep />
           ) : activeIndex === 2 && renderState === 'Done' ? (
+            
+            showConfetti && (
+                <Confetti width={window.innerWidth} height={window.innerHeight} />),
             <DoneStep />
+            
           ) : (
             
             <ContractsStep />
