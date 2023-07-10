@@ -78,8 +78,8 @@ const Landingpage = () => {
             <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
               <i className="pi pi-lock text-4xl text-blue-500"></i>
             </span>
-            <div className="text-900 text-xl mb-3 font-medium">Secure Funding</div>
-            <span className="text-700 line-height-3">All funding that takes place on the platform is secure.</span>
+            <div className="text-900 text-xl mb-3 font-medium">Security</div>
+            <span className="text-700 line-height-3">All contract on the website are secure</span>
           </div>
           <div className="col-12 md:col-4 mb-4 px-5">
             <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
@@ -87,13 +87,6 @@ const Landingpage = () => {
             </span>
             <div className="text-900 text-xl mb-3 font-medium">Easy to Use</div>
             <span className="text-700 line-height-3">With our simple UI, users can navigate through the application easily.</span>
-          </div>
-          <div className="col-12 md:col-4 mb-4 px-5">
-            <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
-              <i className="pi pi-globe text-4xl text-blue-500"></i>
-            </span>
-            <div className="text-900 text-xl mb-3 font-medium">Global Funding</div>
-            <span className="text-700 line-height-3">Fund projects all around the world wherever you are.</span>
           </div>
           <div className="col-12 md:col-4 mb-4 px-5">
             <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>

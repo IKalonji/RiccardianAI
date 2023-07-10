@@ -21,15 +21,14 @@ const Interact = () => {
                             <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
                                 <div className="flex justify-content-between mb-3">
                                     <div>
-                                        <span className="block text-500 font-medium mb-4">Revenue</span>
+                                        <span className="block text-500 font-medium mb-4">Function 0</span>
                                         <div className="text-900 font-medium text-xl">$2.100</div>
                                     </div>
                                     <div className="flex align-items-center justify-content-center bg-orange-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
-                                        <i className="pi pi-map-marker text-orange-500 text-xl"></i>
+                                        <i className="pi pi-link text-orange-500 text-xl"></i>
                                     </div>
                                 </div>
-                                <span className="text-green-500 font-medium">%52+ </span>
-                                <span className="text-500">since last week</span>
+                                <span className="text-green-500 font-medium">Successfully deployed</span>
                             </div>
                         </div>
                         <Button
@@ -39,21 +38,20 @@ const Interact = () => {
                             raised/>
                     </div>
                     <hr/>
-                    <div classNAme="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
+                    <div>
                         
                         <div className="w-full col-12 md:col-6 lg:col-3">
                             <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
                                 <div className="flex justify-content-between mb-3">
                                     <div>
-                                        <span className="block text-500 font-medium mb-4">Revenue</span>
-                                        <div className="text-900 font-medium text-xl">$2.100</div>
+                                        <span className="block text-500 font-medium mb-4">Function 1</span>
+                                        <div className="text-900 font-medium text-xl"></div>
                                     </div>
                                     <div className="flex align-items-center justify-content-center bg-orange-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
-                                        <i className="pi pi-map-marker text-orange-500 text-xl"></i>
+                                        <i className="pi pi-link text-orange-500 text-xl"></i>
                                     </div>
                                 </div>
-                                <span className="text-green-500 font-medium">%52+ </span>
-                                <span className="text-500">since last week</span>
+                                <span className="text-green-500 font-medium">Successfully deployed</span>
                             </div>
                         </div>
                         <Button

@@ -14,7 +14,7 @@ const CreateNew = () => {
 
     const footerContent = (
         <div>
-            <Button label="Continue" icon="pi pi-arrow-circle-right" onClick={() => { setSelectedContent("manually"); setVisible(false); navigate("/go-to-contract") }} text raised autoFocus />
+            <Button label="Continue" icon="pi pi-arrow-circle-right" onClick={() => { setSelectedContent("manually"); setVisible(false); navigate("/interact-with-contract") }} text raised autoFocus />
         </div>
     );
 
@@ -42,8 +42,9 @@ const CreateNew = () => {
       
     return (
         <div>
+            <div style={{height:"25px"}}> </div>
         <Toast ref={toast}></Toast>
-          <Dialog header="Here is your Contract you may save and review it" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
+          <Dialog header="Click continue to interact with your contract" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
               <h5 className="m-0">
                 {editorText}
               </h5>

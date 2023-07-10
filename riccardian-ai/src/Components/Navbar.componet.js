@@ -81,7 +81,7 @@ function Navbar() {
       (
         <>
           <Button label="Create new" icon="pi pi-plus" className="mr-2" onClick={() => {NavigateToPage("/crete-new-contract")}} text/>
-          <Button label="Go to contract" icon="pi pi-file" className="mr-2" onClick={() => {NavigateToPage("/view interactable functions")}} text />
+          {/* <Button label="Go to contract" icon="pi pi-file" className="mr-2" onClick={() => {NavigateToPage("/view interactable functions")}} text /> */}
           <Button label="Interact with contract" icon="pi pi-arrow-right-arrow-left" className="mr-2" onClick={() => {NavigateToPage("/interact-with-contract")}} text />
           {/* <SplitButton label="DAO Members" icon="pi pi-view" model={items} className="mr-2" text severity='success'></SplitButton> */}
         </>

@@ -1,5 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Steps } from 'primereact/steps';
 import { Toast } from 'primereact/toast';
 import Confetti from 'react-confetti';
@@ -17,12 +18,13 @@ const Deploy = () => {
   const [contractName, setContractName] = useState("")
   const contract = localStorage.getItem(contractName);
   const [value, setValue] = useState('');
+  const navigate = useNavigate()
 
   const [visible, setVisible] = useState(true);
 
   const footerContent = (
       <div>
-          <Button label="Continue"  onClick={() => {setVisible(false); setContractName(value)}} className="w-full" autoFocus raised/>
+          <Button label="Continue"  onClick={() => {setVisible(false); setContractName(value)}} className="w-full" raised/>
           
       </div>
   );
@@ -104,8 +106,7 @@ const Deploy = () => {
 
     const handleButtonClick = () => {
         setDeploying(true);
-        
-      };
+    };
     
       return (
         <div className='card'>
@@ -147,27 +148,25 @@ const Deploy = () => {
     
   };
 
-  const DoneStep = () => {
-    
+    const DoneStep = () => {
     return (
       <div>
-        <div class="flex flex-column">
-            <div class="flex align-items-center justify-content-center h-4rem  font-bold border-round m-2">
+        <div className="flex flex-column">
+            <div className="flex align-items-center justify-content-center h-4rem  font-bold border-round m-2">
             <div className="text-900 font-medium text-xl mb-2">Well done! You have Successfully deployed a riccardian contract</div>
             </div>
 
-            <div class="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
+            <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
                 {
-                    () => setShowConfetti(true) &&
                 showConfetti && (
                     <Confetti width={window.innerWidth} height={window.innerHeight} />
                     && setShowConfetti(false))}
                 <Button
-                    label="Restart"
+                    label="View the functions of the contract"
                     className="mr-2"
                     onClick={() => {
                     setActiveIndex(0);
-                    setShowConfetti(false);
+                    navigate("/view interactable functions")
                     }}
                     text
                     raised/>
