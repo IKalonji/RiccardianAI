@@ -25,11 +25,11 @@ export class AppStateService {
     }
 
     async connectToFlowWallet(){
-      alert("Calling flow connect")
+      // alert("Calling flow connect")
       await fcl.authenticate().then(async ()=>{
         this.connected = true;
       }).catch((error)=>{alert(error)});
-      let user = await fcl.currentUser.snapshot(); alert(user)
+      let user = await fcl.currentUser.snapshot();
       console.log(user);
       
       const event = new Event("loggedIn");

@@ -10,7 +10,7 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 const Deploy = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
-  const [showConfetti, setShowConfetti] = useState(false);
+  let [showConfetti, setShowConfetti] = useState(false);
   const [renderState, setRenderState] = useState(null);
   const contract = localStorage.getItem("Contract");
 //   const [showConfetti, setShowConfetti] = useState(false);
@@ -31,6 +31,7 @@ const Deploy = () => {
       
       return () => clearTimeout(timer);
     }
+    showConfetti = true
   }, [deploying]);
   
 
@@ -95,34 +96,40 @@ const Deploy = () => {
       };
     
       return (
-        <div className='flex align-items-center justify-content-center'>
+        <div className='card'>
           <div style={{height:"170px"}}></div>
 
           {deploying ? (
             
             <>
-                <div className='card'>
-                    <div className='card flex justify-content-center'>
+                <div className='flex flex-column'>
+                    <div className='flex align-items-center justify-content-center h-4rem font-bold border-round m-2'>
                     <ProgressSpinner style={{ width: '50px', height: '50px' }} strokeWidth="4" animationDuration=".5s" />
                     
                     </div>
                 </div>
               
               <br/>
-              <p>{" "}Deploying, please wait a few seconds...</p>
+              <div className="">
+                <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">{" "}Deploying, please wait a few seconds...</div>
+            </div>
             </>
           ) : (
             <>
-              {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
-              <Button
-                label="Start deploying"
-                className="mr-2"
-                onClick={handleButtonClick}
-                text
-                raised
-              />
-            </>
-          )}
+            <div className="flex flex-column">
+                <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
+                    {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+                    <Button
+                        label="Start deploying"
+                        className="mr-2"
+                        onClick={handleButtonClick}
+                        text
+                        raised
+                    />
+                </div>
+            </div>
+                </>
+            )}
         </div>
       );
     
@@ -139,8 +146,8 @@ const Deploy = () => {
 
             <div class="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
                 {
+                    () => setShowConfetti(true) &&
                 showConfetti && (
-                    setShowConfetti(true) &&
                     <Confetti width={window.innerWidth} height={window.innerHeight} />
                     && setShowConfetti(false))}
                 <Button
@@ -209,7 +216,7 @@ const Deploy = () => {
           readOnly={false}
         />
 
-        {showConfetti && (
+        { showConfetti && (
                 <Confetti width={window.innerWidth} height={window.innerHeight} />
               )}
 
@@ -220,9 +227,7 @@ const Deploy = () => {
           ) : activeIndex === 1 && renderState === 'Deploying' ? (
             <DeployingStep />
           ) : activeIndex === 2 && renderState === 'Done' ? (
-            
-            showConfetti && (
-                <Confetti width={window.innerWidth} height={window.innerHeight} />),
+                 
             <DoneStep />
             
           ) : (
