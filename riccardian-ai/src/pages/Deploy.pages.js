@@ -5,15 +5,27 @@ import { Toast } from 'primereact/toast';
 import Confetti from 'react-confetti';
 import { Button } from 'primereact/button';
 import { Editor } from "primereact/editor";
+import { InputText } from "primereact/inputtext";
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { Dialog } from 'primereact/dialog';
 
 const Deploy = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const toast = useRef(null);
   let [showConfetti, setShowConfetti] = useState(false);
   const [renderState, setRenderState] = useState(null);
-  const contract = localStorage.getItem("Contract");
-//   const [showConfetti, setShowConfetti] = useState(false);
+  const [contractName, setContractName] = useState("")
+  const contract = localStorage.getItem(contractName);
+  const [value, setValue] = useState('');
+
+  const [visible, setVisible] = useState(true);
+
+  const footerContent = (
+      <div>
+          <Button label="Continue"  onClick={() => {setVisible(false); setContractName(value)}} className="w-full" autoFocus raised/>
+          
+      </div>
+  );
 
   const [deploying, setDeploying] = useState(false);
 
@@ -206,6 +218,9 @@ const Deploy = () => {
 
   return (
     <div>
+        <Dialog header="Enter the contract Address below" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
+            <InputText placeholder='Enter ContractAddress Here' className='w-full' value={value} onChange={(e) => { setValue(e.target.value); setContractName(e.target.value) }} />
+        </Dialog>
       <div className="spacer" style={{ height: '20px' }}></div>
       <div className="card">
         <Toast ref={toast}></Toast>
@@ -213,7 +228,7 @@ const Deploy = () => {
           model={items}
           activeIndex={activeIndex}
           onSelect={(e) => setActiveIndex(e.index)}
-          readOnly={false}
+          
         />
 
         { showConfetti && (
