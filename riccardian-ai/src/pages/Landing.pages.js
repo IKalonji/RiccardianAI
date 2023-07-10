@@ -41,7 +41,7 @@ const Landingpage = () => {
           <section>
             {/* <Toast ref={toast} /> */}
             <ConfirmDialog />
-            <span className="block text-6xl font-bold mb-1">Riccardian AI</span>
+            <span className="block text-6xl font-bold mb-1">RiccardianAI</span>
             <div className="text-6xl text-primary font-bold mb-3">Legally Binding Smart Contracts</div>
             <p className="mt-0 mb-4 text-700 line-height-3">Riccardian AI converts ordinary legal contracts into smart contracts and enforces them using AI technology.</p>
 
@@ -53,7 +53,7 @@ const Landingpage = () => {
           </section>
         </div>
         <div className="col-12 md:col-6 overflow-hidden">
-          <img src="https://appdevelopermagazine.com/scripts/resize/?path=/multimedia/Using-smart-contracts-to-improve-data-management_tbo7l3y0.jpg&width=900" alt="hero-1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }} />
+          <img src="https://appdevelopermagazine.com/scripts/resize/?path=/multimedia/Using-smart-contracts-to-improve-data-management_tbo7l3y0.jpg&width=600" alt="hero-1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }} />
         </div>
       </div>
 
@@ -62,10 +62,10 @@ const Landingpage = () => {
 
       <div className="surface-0 text-center">
         <div className="mb-3 font-bold text-3xl">
-          <span className="text-900">Get easy, </span>
-          <span className="text-blue-600">Funding from the Community</span>
+          <span className="text-900">Bringing, </span>
+          <span className="text-blue-600">The AI into blockchain</span>
         </div>
-        <div className="text-700 mb-6">Riccardian AI makes it easy for big projects to get funding</div>
+        <div className="text-700 mb-6">RiccardianAI makes it easy to leagally bind smartcontract's</div>
         <div className="grid">
           <div className="col-12 md:col-4 mb-4 px-5">
             <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>

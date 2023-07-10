@@ -1,10 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+import { InputText } from "primereact/inputtext";
 
 const Interact = () => {
     const contract = localStorage.getItem("Contract")
+    const [visible, setVisible] = useState(true);
+    const footerContent = (
+        <div>
+            <Button className='w-full' label="Interact" icon="pi pi-spin pi-arrow-right-arrow-left" onClick={() => setVisible(false)} raised />
+        </div>
+    );
   return (
     <div className='card'>
+        <Dialog header="Your contract address is needed to interact with the contract" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
+            <InputText className='w-full' placeholder='Enter your contract address'/>
+        </Dialog>
         <div className="card flex align-items-center justify-content-center font-bold border-round m-2">
             <div className="border-round border-1 surface-border p-4 surface-card p-4 shadow-2 border-round w-full lg:w-6">
                 <div className='text-center mb-5'>

@@ -20,8 +20,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Landingpage />}/>
           <Route path='/crete-new-contract' element={<CreateNew/>}/>
-          <Route path='/interact-with-contract' element={<Deploy/>} />
-          <Route path='/view interactable functions' element={<Interact/>} />
+          <Route path='/start-deployement' element={<Deploy/>} />
+          <Route path='/interact-with-contract' element={<Interact/>} />
         </Routes>
       </BrowserRouter>
     </div>

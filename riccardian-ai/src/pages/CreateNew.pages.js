@@ -14,7 +14,7 @@ const CreateNew = () => {
 
     const footerContent = (
         <div>
-            <Button label="Continue" icon="pi pi-arrow-circle-right" onClick={() => { setSelectedContent("manually"); setVisible(false); navigate("/interact-with-contract") }} text raised autoFocus />
+            <Button label="Continue" icon="pi pi-arrow-circle-right" onClick={() => { setSelectedContent("manually"); setVisible(false); navigate("/start-deployement") }} text raised autoFocus />
         </div>
     );
 

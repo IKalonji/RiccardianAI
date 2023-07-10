@@ -6,9 +6,7 @@ import { Toast } from 'primereact/toast';
 import Confetti from 'react-confetti';
 import { Button } from 'primereact/button';
 import { Editor } from "primereact/editor";
-import { InputText } from "primereact/inputtext";
 import { ProgressSpinner } from 'primereact/progressspinner';
-import { Dialog } from 'primereact/dialog';
 
 const Deploy = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -16,20 +14,22 @@ const Deploy = () => {
   let [showConfetti, setShowConfetti] = useState(false);
   const [renderState, setRenderState] = useState(null);
   const [contractName, setContractName] = useState("")
-  const contract = localStorage.getItem(contractName);
+  const contract = localStorage.getItem("Contract");
   const [value, setValue] = useState('');
   const navigate = useNavigate()
 
   const [visible, setVisible] = useState(true);
 
-  const footerContent = (
-      <div>
-          <Button label="Continue"  onClick={() => {setVisible(false); setContractName(value)}} className="w-full" raised/>
-          
-      </div>
-  );
-
   const [deploying, setDeploying] = useState(false);
+  const renderHeader = () => {
+    return (
+        <span className="ql-formats">
+            <button className="ql-code" aria-label="code"></button>
+        </span>
+    );
+};
+
+const header = renderHeader();
 
   useEffect(() => {
 
@@ -62,10 +62,10 @@ const Deploy = () => {
                 <div className=" surface-card p-4 shadow-2 border-round w-full lg:w-5">
                     <div className="align-self-start p-3 h-full">
                         <div className="shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
-                            <div className="text-900 font-medium text-xl mb-2">Below is the human readable contract</div>
+                            <div className="text-900 font-medium text-xl mb-2">Your input contract</div>
 
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
-                            <Editor value={contract} readOnly style={{ height: '320px' }} />
+                            <Editor headerTemplate={header} value={contract} readOnly style={{ height: '320px' }} />
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />                            
                             
                         </div>
@@ -75,10 +75,10 @@ const Deploy = () => {
                 <div className=" surface-card p-4 shadow-2 border-round w-full lg:w-5">
                     <div className="align-self-end p-3 h-full">
                         <div className="shadow-2 p-3 flex flex-column" style={{ borderRadius: '6px' }}>
-                            <div className="text-900 font-medium text-xl mb-2">Below is the machine readable smartcontract</div>
+                            <div className="text-900 font-medium text-xl mb-2">AI Generated Riccardian contract</div>
                             
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
-                            <Editor value={contract} readOnly style={{ height: '320px' }} />
+                            <Editor headerTemplate={header} value={contract} style={{ height: '320px' }} />
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                         </div>
                     </div>
@@ -166,7 +166,7 @@ const Deploy = () => {
                     className="mr-2"
                     onClick={() => {
                     setActiveIndex(0);
-                    navigate("/view interactable functions")
+                    navigate("/interact-with-contract")
                     }}
                     text
                     raised/>
@@ -217,18 +217,13 @@ const Deploy = () => {
 
   return (
     <div>
-        <Dialog header="Enter the contract Address below" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
-            <InputText placeholder='Enter ContractAddress Here' className='w-full' value={value} onChange={(e) => { setValue(e.target.value); setContractName(e.target.value) }} />
-        </Dialog>
       <div className="spacer" style={{ height: '20px' }}></div>
       <div className="card">
         <Toast ref={toast}></Toast>
         <Steps
           model={items}
           activeIndex={activeIndex}
-          onSelect={(e) => setActiveIndex(e.index)}
-          
-        />
+          onSelect={(e) => setActiveIndex(e.index)}/>
 
         { showConfetti && (
                 <Confetti width={window.innerWidth} height={window.innerHeight} />
