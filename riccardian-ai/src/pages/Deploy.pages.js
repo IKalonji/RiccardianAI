@@ -54,11 +54,12 @@ const header = renderHeader();
     console.log("First step");
     return (
       <div className=''>
-        <div style={{height:"35px"}}></div>
+        <div style={{height:335}}></div>
         
         <div className="">
 
-            <div className="grid">
+            <div className="flex flex-column justify-content-center gap-300">
+                <div class="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
                 <div className=" surface-card p-4 shadow-2 border-round w-full lg:w-5">
                     <div className="align-self-start p-3 h-full">
                         <div className="shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
@@ -83,20 +84,17 @@ const header = renderHeader();
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
-        </div>
-    
-
-        <div className='flex flex-column'>
             
-            <Button
+        </div>
+        <div style={{height:"40px"}}></div>
+        <Button
+        style={{position:"relative", top:"40vh"}}
             label="Next Step"
             icon="pi pi-plus"
-            className="flex align-items-center justify-content-center mr-2"
+            className="w-full "
             onClick={() => (setActiveIndex(1), setRenderState("Deploying"))}/>
-        </div>
-        
-        
       </div>
     );
   };
@@ -228,19 +226,14 @@ const header = renderHeader();
         { showConfetti && (
                 <Confetti width={window.innerWidth} height={window.innerHeight} />
               )}
-
-
         <div className="">
           {activeIndex === 0 && renderState === 'Contracts' ? (
             <ContractsStep />
           ) : activeIndex === 1 && renderState === 'Deploying' ? (
             <DeployingStep />
-          ) : activeIndex === 2 && renderState === 'Done' ? (
-                 
+          ) : activeIndex === 2 && renderState === 'Done' ? (    
             <DoneStep />
-            
           ) : (
-            
             <ContractsStep />
           )}
         </div>
