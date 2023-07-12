@@ -115,7 +115,7 @@ const header = renderHeader();
             <>
                 <div className='flex flex-column'>
                     <div className='flex align-items-center justify-content-center h-4rem font-bold border-round m-2'>
-                    <ProgressSpinner style={{ width: '50px', height: '50px' }} strokeWidth="4" animationDuration=".5s" />
+                    <ProgressSpinner style={{ width: '150px', height: '50px' }} strokeWidth="8" animationDuration=".5s" />
                     
                     </div>
                 </div>
@@ -129,7 +129,7 @@ const header = renderHeader();
             <>
             <div className="flex flex-column">
                 <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
-                    {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+                    
                     <Button
                         label="Start deploying"
                         className="mr-2"
@@ -147,6 +147,7 @@ const header = renderHeader();
   };
 
     const DoneStep = () => {
+
     return (
       <div>
         <div className="flex flex-column">
@@ -156,9 +157,10 @@ const header = renderHeader();
 
             <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
                 {
+                    setShowConfetti(true)&&
                 showConfetti && (
-                    <Confetti width={window.innerWidth} height={window.innerHeight} />
-                    && setShowConfetti(false))}
+                    <Confetti width={window.innerWidth} height={window.innerHeight} />)
+                    && setShowConfetti(false)}
                 <Button
                     label="View the functions of the contract"
                     className="mr-2"
