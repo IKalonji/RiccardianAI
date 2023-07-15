@@ -1,32 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import Divider from '@mui/material/Divider';
 import { Dialog } from 'primereact/dialog';
-
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
+
+import { ConfirmDialog} from 'primereact/confirmdialog';
+import { AppStateService } from '../AppstateService/AppState.service';
+
 
 const Landingpage = () => {
   const [visible, setVisible] = useState(false);
+  const toast = useRef(null);
+  const navigate = useNavigate();
 
-  const confirmConnect = () => {
-    confirmDialog({
-      message: 'You need to connect your Metamask to proceed',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept,
-      reject
-    });
-  };
+  const service = new AppStateService();
 
-  const accept = () => {
-    // service.connectToMetamask()
-    console.log("connect")
-  };
+  function GetStartedEvent(path) {
+    if (service.connected) {
+      navigate('/crete-new-contract')
+    } else {
+      service.connectToFlowWallet()
+        .then(() => {
+          navigate('/crete-new-contract');
+        })
+        .catch((error) => {
+          toast.current.show({ severity: 'error', summary: 'Error', detail: 'Cannot display the page until user is connected to flow', life: 3000 });
+        });
+    }
+  }
 
-  const reject = () => {
-    // toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-  };
 
   const footerContent = (
     <div>
@@ -36,6 +39,7 @@ const Landingpage = () => {
 
   return (
     <div>
+        <Toast ref={toast}/>
       <div className="grid grid-nogutter surface-0 text-800">
         <div className="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
           <section>
@@ -45,7 +49,7 @@ const Landingpage = () => {
             <div className="text-6xl text-primary font-bold mb-3">Legally Binding Smart Contracts</div>
             <p className="mt-0 mb-4 text-700 line-height-3">Riccardian AI converts ordinary legal contracts into smart contracts and enforces them using AI technology.</p>
 
-            <Button label="View Projects" type="button" className="mr-3 p-button-raised" />
+            <Button label="Get started" type="button" className="mr-3 p-button-raised" onClick={GetStartedEvent}/>
             <Button label="Watch Demo" type="button" className="p-button-outlined" icon="pi pi-external-link" onClick={() => setVisible(true)} />
             <Dialog visible={visible} style={{ width: '50vw', textAlign: "center" }} onHide={() => setVisible(false)} footer={footerContent}>
               <iframe src='https://www.youtube.com/embed/oa0pmjf-dsQ' title="The demo video" width="500" height="400"></iframe>
@@ -88,6 +92,13 @@ const Landingpage = () => {
             <div className="text-900 text-xl mb-3 font-medium">Easy to Use</div>
             <span className="text-700 line-height-3">With our simple UI, users can navigate through the application easily.</span>
           </div>
+            <div className="col-12 md:col-4 mb-4 px-5">
+                <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
+                    <i className="pi pi-spin pi-globe text-4xl text-blue-500"></i>
+                </span>
+                <div className="text-900 text-xl mb-3 font-medium">Fast & Global Support</div>
+                <span className="text-700 line-height-3">RiccardianAI is open to users around the globe</span>
+            </div>
           <div className="col-12 md:col-4 mb-4 px-5">
             <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
               <i className="pi pi-github text-4xl text-blue-500"></i>

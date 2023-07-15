@@ -15,13 +15,14 @@ const Deploy = () => {
   const [renderState, setRenderState] = useState(null);
   const [contractName, setContractName] = useState("")
   const contract = localStorage.getItem("Contract");
+  const generatedContract = localStorage.getItem("GeneratedContract");
   const [value, setValue] = useState('');
   const navigate = useNavigate()
 
   const [visible, setVisible] = useState(true);
 
   const [deploying, setDeploying] = useState(false);
-  const renderHeader = () => {
+  const renderRiccardianContractHeader = () => {
     return (
         <span className="ql-formats">
             <button className="ql-code" aria-label="code"></button>
@@ -29,57 +30,69 @@ const Deploy = () => {
     );
 };
 
-const header = renderHeader();
+const renderHumanReadableContractHeader = () => {
+    return (
+        <span className="ql-formats">
+          <button className="ql-bold" aria-label="Bold"></button>
+          <button className="ql-italic" aria-label="Italic"></button>
+          <button className="ql-underline" aria-label="Underline"></button>
+        </span>
+      );
+};
 
-  useEffect(() => {
+    const RiccardianHeader = renderRiccardianContractHeader();
+    const HumanReadableHeader = renderHumanReadableContractHeader();
 
-    if (deploying) {
-        // setDeploying(true)
-      const timer = setTimeout(() => {
-        // Perform the action after 15 seconds
-        setRenderState("Done");
-        setActiveIndex(2);
-        setShowConfetti(false);
-        setDeploying(false);
-      }, 5000);
-      
-      return () => clearTimeout(timer);
-    }
-    showConfetti = true
-  }, [deploying]);
+    useEffect(() => {
+        
+        if (deploying) {
+            // setDeploying(true)
+            const timer = setTimeout(() => {
+            // Perform the action after 15 seconds
+            setRenderState("Done");
+            setActiveIndex(2);
+            setShowConfetti(false);
+            setDeploying(false);
+            }, 5000);
+            
+            return () => clearTimeout(timer);
+        }
+        showConfetti = true
+        }, [deploying]);
   
-
-  const ContractsStep = () => {
+    const ContractsStep = () => {
     
     console.log("First step");
     return (
+
       <div className=''>
         <div style={{height:335}}></div>
         
         <div className="">
-
             <div className="flex flex-column justify-content-center gap-300">
-                <div class="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
-                <div className=" surface-card p-4 shadow-2 border-round w-full lg:w-5">
-                    <div className="align-self-start p-3 h-full">
-                        <div className="shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
-                            <div className="text-900 font-medium text-xl mb-2">Your input contract</div>
+                <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
 
+                <div className="bg-primary surface-card p-7  border-round w-full lg:w-5">
+                    <div className="align-self-start p-3 h-full">
+                        <div className=" shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
+                            <div className="text-center text-900 font-medium text-xl mb-2">Your input contract</div>
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
-                            <Editor headerTemplate={header} value={contract} readOnly style={{ height: '320px' }} />
-                            <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />                            
-                            
+                            <pre>
+                                <Editor headerTemplate={HumanReadableHeader} value={contract} readOnly style={{ height: '320px' }} />
+                            </pre>
+                            <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                         </div>
                     </div>
                 </div>
-
-                <div className=" surface-card p-4 shadow-2 border-round w-full lg:w-5">
+                
+                <div className=" surface-card p-4 border-round bg-primary w-full lg:w-5">
                     <div className="align-self-end p-3 h-full">
                         <div className="shadow-2 p-3 flex flex-column" style={{ borderRadius: '6px' }}>
-                            <div className="text-900 font-medium text-xl mb-2">AI Generated Riccardian contract</div>
-                            
+                            <div className="text-center text-900 font-medium text-xl mb-2">AI Generated Riccardian contract</div>
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
-                            <Editor headerTemplate={header} value={contract} style={{ height: '320px' }} />
+                            <pre>
+                                <Editor headerTemplate={RiccardianHeader} value={generatedContract} style={{ height: '320px' }} />
+                            </pre>
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                         </div>
                     </div>
@@ -217,29 +230,30 @@ const header = renderHeader();
 
   return (
     <div>
-      <div className="spacer" style={{ height: '20px' }}></div>
-      <div className="card">
-        <Toast ref={toast}></Toast>
-        <Steps
-          model={items}
-          activeIndex={activeIndex}
-          onSelect={(e) => setActiveIndex(e.index)}/>
+        <div className="spacer" style={{ height: '20px' }}></div>
 
-        { showConfetti && (
-                <Confetti width={window.innerWidth} height={window.innerHeight} />
-              )}
-        <div className="">
-          {activeIndex === 0 && renderState === 'Contracts' ? (
-            <ContractsStep />
-          ) : activeIndex === 1 && renderState === 'Deploying' ? (
-            <DeployingStep />
-          ) : activeIndex === 2 && renderState === 'Done' ? (    
-            <DoneStep />
-          ) : (
-            <ContractsStep />
-          )}
+        <div className="card">
+            <Toast ref={toast}></Toast>
+            <Steps
+                model={items}
+                activeIndex={activeIndex}
+                onSelect={(e) => setActiveIndex(e.index)}/>
+
+            { showConfetti && (
+                    <Confetti width={window.innerWidth} height={window.innerHeight} />
+                    )}
+            <div className="">
+                {activeIndex === 0 && renderState === 'Contracts' ? (
+                <ContractsStep />
+                ) : activeIndex === 1 && renderState === 'Deploying' ? (
+                <DeployingStep />
+                ) : activeIndex === 2 && renderState === 'Done' ? (    
+                <DoneStep />
+                ) : (
+                <ContractsStep />
+                )}
+            </div>
         </div>
-      </div>
     </div>
   );
 };
