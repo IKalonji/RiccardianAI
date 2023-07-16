@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef} from 'react'
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from "primereact/inputtext";
@@ -13,10 +13,8 @@ const Interact = () => {
     const [deployerName, setDeployerNAme] = useState('');
     const [transactionDetails, setTransactionDetails] = useState('');
     const [completeTransaction, setCompleteTransaction] = useState('');
-
     let toast = useRef(null);
-
-    let respanseArray = []
+    // const GeneratedTransaction = localStorage.getItem("GeneratedTransaction")
 
     const createTransactionAsDescribed = async () => {
 
@@ -46,7 +44,6 @@ const Interact = () => {
         </div>
     )
 
-    const GeneratedTransaction = localStorage.getItem("GeneratedTransaction")
 
     function CheckTransactionDetails(){
         if (!transactionDetails){

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef} from "react";
 // import dotenv from "dotenv"
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
@@ -6,15 +6,13 @@ import { Editor } from "primereact/editor";
 import { useNavigate } from "react-router-dom";
 import { Toast } from 'primereact/toast';
 
-import { Configuration, OpenAIApi } from "openai";
-
 const CreateNew = () => {
     const [visible, setVisible] = useState(false);
     const [enabled, setEnabled] = useState(true);
-    const [selectedContent, setSelectedContent] = useState(null);
+    // const [selectedContent, setSelectedContent] = useState(null);
     const toast = useRef(null);
     const [editorText, setEditorText] = useState('');
-    const [ contractText, setContractText] = useState('//Cadence contract not respnding')
+    // const [ contractText, setContractText] = useState('//Cadence contract not respnding')
     const navigate = useNavigate()
 
     const ConvertToSmartContract = () => {
