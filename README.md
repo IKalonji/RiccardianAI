@@ -1,4 +1,4 @@
-# RiccardianAI
+# RiccardianAI fast tracking the evolution of law 3.0
 
 Welcome to RiccardianAI, an innovative project that transforms ordinary legal contracts into Cadence smart contracts for the Flow blockchain. Our goal is to streamline the process of converting traditional legal agreements into secure and efficient smart contracts, leveraging the power of artificial intelligence and the Flow blockchain. In this README, we will provide you with an overview of the project, including its problem statement, solution, frontend, backend, and future development plans.
 
