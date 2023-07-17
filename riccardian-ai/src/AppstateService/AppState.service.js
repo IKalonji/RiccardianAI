@@ -27,16 +27,15 @@ export class AppStateService {
     }
 
     async connectToFlowWallet(){
-      // alert("Calling flow connect")
       await fcl.authenticate().then(()=>{
         this.connected = true;
       }).catch((error)=>{alert(error)});
       let user = await fcl.currentUser.snapshot();
-      console.log(user);
+      console.log(user.addr);
+      this.walletAddress = `${user.addr}`
       
       const event = new Event("loggedIn");
       window.dispatchEvent(event);
-      // this.contractIsUserMemeber();
     }
 
     async connectToMetamask(){

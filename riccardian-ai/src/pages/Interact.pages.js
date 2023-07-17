@@ -12,9 +12,9 @@ const Interact = () => {
     const [contractName, setContractName] = useState('');
     const [deployerName, setDeployerNAme] = useState('');
     const [transactionDetails, setTransactionDetails] = useState('');
-    const [completeTransaction, setCompleteTransaction] = useState('');
+    const [completeTransaction, setCompleteTransaction] = useState('Currently there is no transtaction to execute');
+    const [disabled, setDisabled] = useState(true);
     let toast = useRef(null);
-    // const GeneratedTransaction = localStorage.getItem("GeneratedTransaction")
 
     const createTransactionAsDescribed = async () => {
 
@@ -32,7 +32,6 @@ const Interact = () => {
             })
     }
 
-
     const footerContent = (
         <div>
             <Button className='w-full' label="Interact" icon="pi pi-spin pi-arrow-right-arrow-left" onClick={() => setVisible(false)} raised />
@@ -44,7 +43,6 @@ const Interact = () => {
         </div>
     )
 
-
     function CheckTransactionDetails(){
         if (!transactionDetails){
             alert("complete the input field")
@@ -52,6 +50,7 @@ const Interact = () => {
         else{
             createTransactionAsDescribed()
             setTransactionPopUp(false);
+            setDisabled(false)
             toast.current.show({ severity: 'info', summary: 'Transaction processing...', detail: "Please wait a few seconds while the transaction is being created" , life:5000});
         }
     }
@@ -93,21 +92,16 @@ const Interact = () => {
 
                 <div className='card flex flex-column'>
                 <div className="">
-                    
                     <div className="">
-                        
                         <Button
                             icon = "pi pi-arrow-right-arrow-left"
                             label="Create Transaction"
                             className="w-full flex align-items-center justify-content-center mr-2"
                             onClick={()=>{setTransactionPopUp(true)}}
                             raised/>
-
                     </div>
-
                     <hr/>
                     <div>
-                        
                         <div className="w-full col-12 md:col-6 lg:col-3">
                             <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
                                 <div className="flex justify-content-between mb-3">
@@ -117,18 +111,16 @@ const Interact = () => {
                                     </div>
                                 </div>
                                     <hr/>
-
                                     <pre className='text-left'>
-                                        
                                         <span className="block  font-medium mb-6">{completeTransaction}</span>
                                     </pre>
-
                                     <hr/>
                                     <Button
                                     severity="success"
                                     icon = "pi pi-arrow-right"
                                     label="Execute Transaction"
                                     className="w-full flex align-items-center justify-content-center mr-2"
+                                    disabled={disabled}
                                     raised/>
                             </div>
                         </div>
@@ -143,5 +135,4 @@ const Interact = () => {
     </div>
   )
 }
-
 export default Interact

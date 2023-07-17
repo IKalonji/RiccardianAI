@@ -9,33 +9,41 @@ import { Toast } from 'primereact/toast';
 const CreateNew = () => {
     const [visible, setVisible] = useState(false);
     const [enabled, setEnabled] = useState(true);
-    // const [selectedContent, setSelectedContent] = useState(null);
+    const [loading, setLoading] = useState(false);
     const toast = useRef(null);
     const [editorText, setEditorText] = useState('');
-    // const [ contractText, setContractText] = useState('//Cadence contract not respnding')
     const navigate = useNavigate()
 
     const ConvertToSmartContract = () => {
-      
+        
+        setLoading(true);
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ role:"user", content:`Using this legal contract, generat a cadence smart contract to be deployed on the flow blockchain: ${editorText}` })
+            body: JSON.stringify({ role:"user", content:`You are an experienced Cadence Smart Contract Engineer, with extensive experience of converting legal agreements into smart contracts to be used as Ricardian contracts. Using the legal agreement below, generate a Cadence smart contract that will represent the legal agreement on the blockchain, create functions in the cntract that represents the condirions of the legal agreement. You are only required to generate the code without any explanation, you may only add comments to the codex. Here is the agreement: ${editorText}` })
         };
+        fetch('https://jointlabs.xyz/v1/ricardian', requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("response: ", data.response);
+            localStorage.setItem("GeneratedContract", data.response);
+            setEnabled(false)
+            setLoading(false); // Set loading state to false after fetch is done
+          });
+      };
 
-         fetch('https://jointlabs.xyz/v1/ricardian', requestOptions)
-            .then((response)=> response.json()).then((data) => {
-                console.log("response: ", data.response);
-                localStorage.setItem("GeneratedContract", data.response);
-                setEnabled(false)
-            })
-    }
-
-    const footerContent = (
+      const footerContent = (
         <div>
+          {loading ? (
+            <div className="p-d-flex p-ai-center p-jc-center">
+              <i className="pi pi-spin pi-spinner text-blue-500" style={{ fontSize: '2rem', marginRight: '0.5rem' }}></i>
+              <span>Your smart contract is on the way...</span>
+            </div>
+          ) : (
             <Button label="Continue" icon="pi pi-arrow-circle-right" disabled={enabled} onClick={() => { setVisible(false); navigate("/start-deployement") }} text raised autoFocus />
+          )}
         </div>
-    );
+      );
 
     const renderHeader = () => {
         return (
@@ -66,19 +74,18 @@ const CreateNew = () => {
             <div style={{height:"25px"}}> </div>
         <Toast ref={toast}></Toast>
         <pre>
-            <Dialog header="Click continue to deploy your contract when the button is enabled" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
-                <h6 className="m-0">
-                    {editorText}
-                    
-                </h6>
-            </Dialog>
+        <Dialog header="Click continue to deploy your contract when the button is enabled" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
+            <h4 className="m-0">
+                <pre>{editorText}</pre>
+            </h4>
+        </Dialog>
         </pre>
           
           <div className="flex align-items-center justify-content-center">
             <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
                 <div className="text-center mb-5">
                     <img src="https://blocks.primereact.org/demo/images/blocks/logos/hyper.svg" alt="hyper" height={50} className="mb-3" />
-                    <div className="text-900 text-3xl font-medium mb-3">Paste the Human readable Contract here</div>
+                    <div className="text-900 text-3xl font-medium mb-3">Enter the Human readable Contract below</div>
                 </div>
 
                 <div>
