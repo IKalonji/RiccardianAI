@@ -51,7 +51,7 @@ const Landingpage = () => {
 
             <Button label="Get started" type="button" className="mr-3 p-button-raised" onClick={GetStartedEvent}/>
             <Button label="Watch Demo" type="button" className="p-button-outlined" icon="pi pi-external-link" onClick={() => setVisible(true)} />
-            <Dialog visible={visible} style={{ width: '50vw', textAlign: "center" }} onHide={() => setVisible(false)} footer={footerContent}>
+            <Dialog draggable={false} visible={visible} style={{ width: '50vw', textAlign: "center" }} onHide={() => setVisible(false)} footer={footerContent}>
               <iframe src='https://www.youtube.com/embed/I7VrJbyu7M0' title="The demo video" width="500" height="400"></iframe>
             </Dialog>
           </section>
