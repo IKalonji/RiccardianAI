@@ -31,10 +31,10 @@ const Deploy = () => {
   useEffect(() => {
         
     if (deploying) {
+      setTimeout(()=> {
         FetchingBeforeDeployment();
-        setRenderState("Done");
-        setActiveIndex(2);
-        setDeploying(false);
+
+      }, 9000)
         return
     }
     }, [deploying]);
@@ -68,25 +68,36 @@ const Deploy = () => {
       const deployContract = {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user: service.walletAddress, workspace: "ricardian", account_name: 'emulator-account', network: "emulator", file: "test_contract.cdc"
+        body: JSON.stringify({ user: service.walletAddress, workspace: "ricardian", account_name: 'emulator', network: "emulator", file: "test_contract.cdc"
         })
       };
-  
+
       try {
         let userCreation = await fetch("https://jointlabs.xyz/v1/flowde/create_user", createUser)
         .then((response) => response.json())
         .then((data) => {
           console.log("creating the user")
           console.log("response: ", data);
-          setStatus("Creating the user...");
+          
+          if (data.result === "OK"){
+            setStatus("Creating the user...");
+          } else{
+            setStatus("Creating the user...");
+            toast.current.show({ severity: 'error', summary: 'Error', detail: "An error occured while creating the workspace" , life:5000});
+          }
         })
   
         let wrokspaceCreation = await fetch("https://jointlabs.xyz/v1/flowde/create_workspace", createWorkspace)
         .then((response) => response.json())
         .then((data) => {
           console.log("creating the workspace")
-          console.log("response: ", data);
-          setStatus("Creating workspace...");
+          console.log("response: ", data);          
+          if (data.result === "OK"){
+            setStatus("Creating workspace...");
+          } else{
+            setStatus("Creating workspace...");
+            toast.current.show({ severity: 'error', summary: 'Error', detail: "An error occured while creating the workspace" , life:5000});
+          }
         })
   
         let fileCreation = await fetch("https://jointlabs.xyz/v1/flowde/create_file", createFile)
@@ -94,7 +105,12 @@ const Deploy = () => {
           .then((data) => {
             console.log("creating the file")
             console.log("response: ", data);
-            setStatus("Creating files...");
+            if (data.result === "OK"){
+              setStatus("Creating files...");
+            } else{
+              setStatus("Creating files...");
+              toast.current.show({ severity: 'error', summary: 'Error', detail: "An error occured whilst adding the contents to the file" , life:5000});
+            }
           })
         
         let addingToFile = await fetch("https://jointlabs.xyz/v1/flowde/add_to_file", addToFile)
@@ -102,7 +118,13 @@ const Deploy = () => {
         .then((data) => {
           console.log("adding to file")
           console.log("response: ", data);
-          setStatus("Adding to file...");
+          if (data.result === "OK"){
+            setStatus("Adding to file...");
+          } else{
+            setStatus("Adding to file...");
+            toast.current.show({ severity: 'error', summary: 'Error', detail: "An error occured whilst adding the contents to the file" , life:5000});
+          }
+          
         })
   
         let contractDeployment = await fetch("https://jointlabs.xyz/v1/flowde/deploy_contracts", deployContract)
@@ -110,7 +132,18 @@ const Deploy = () => {
         .then((data) => {
           console.log("deploying the contract")
           console.log("response: ", data);
-          setStatus("Deploying contract!!!");
+          if (data.result === "OK"){
+            setStatus("Deploying contract!!!");
+
+            setRenderState("Done");
+            setActiveIndex(2);
+            setDeploying(false);
+
+            toast.current.show({ severity: 'success', summary: 'Success', detail: "Your Ricardian contract has been successfully deployed" , life:5000});
+          } else{
+            setStatus("Deploying contract!!!");
+            toast.current.show({ severity: 'error', summary: 'Error', detail: "An error occured during the deployement of the contract" , life:5000});
+          }
         })
         
       } catch (error) {
@@ -143,13 +176,13 @@ const Deploy = () => {
 
   const ContractsStep = () => {
     return (
-      <div className=''>
+      <div className='grid'>
         <div style={{ height: 335 }}></div>
 
         <div className="">
           <div className="flex flex-column justify-content-center gap-300">
-            <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
-              <div className="bg-primary surface-card p-7  border-round w-full lg:w-5">
+            <div className="col-12 flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
+              <div className="col-12 surface-card p-7  border-round w-full lg:w-5">
                 <div className="align-self-start p-3 h-full">
                   <div className=" shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
                     <div className="text-center text-900 font-medium text-xl mb-2">Your input contract</div>
@@ -162,7 +195,7 @@ const Deploy = () => {
                 </div>
               </div>
 
-              <div className=" surface-card p-4 border-round bg-primary w-full lg:w-5">
+              <div className="col-12 surface-card p-4 border-round bg-primary w-full lg:w-5">
                 <div className="align-self-end p-3 h-full">
                   <div className="shadow-2 p-3 flex flex-column" style={{ borderRadius: '6px' }}>
                     <div className="text-center text-900 font-medium text-xl mb-2">AI Generated Riccardian contract</div>
@@ -189,7 +222,6 @@ const Deploy = () => {
           onClick={() => {
             setActiveIndex(1);
             setRenderState("Deploying");
-            FetchingBeforeDeployment();
           }} />
       </div>
     );

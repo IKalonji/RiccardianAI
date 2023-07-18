@@ -4,6 +4,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Toast } from 'primereact/toast';
+import { Editor } from "primereact/editor";
 
 const Interact = () => {
     const generatedContract = localStorage.getItem("GeneratedContract");
@@ -14,6 +15,7 @@ const Interact = () => {
     const [transactionDetails, setTransactionDetails] = useState('');
     const [completeTransaction, setCompleteTransaction] = useState('Currently there is no transtaction to execute');
     const [disabled, setDisabled] = useState(true);
+    const [transactionCode,setTransactionCode] = useState('')
     let toast = useRef(null);
 
     const createTransactionAsDescribed = async () => {
@@ -31,6 +33,13 @@ const Interact = () => {
                 localStorage.setItem("GeneratedTransaction", `${data.response}`)
             })
     }
+    const renderHeader = () => {
+        return (
+            <span className="ql-formats">
+                <span className=" text-blue-500 block text-500 font-medium mb-4">Transaction for: {contractName}</span> 
+            </span>
+        );
+    };
 
     const footerContent = (
         <div>
@@ -45,15 +54,19 @@ const Interact = () => {
 
     function CheckTransactionDetails(){
         if (!transactionDetails){
-            alert("complete the input field")
+            toast.current.show({ severity: 'warn', summary: 'Empty prompt', detail: "can not create a transaction due to an empty prompt" , life:5000});
         }
         else{
+            setCompleteTransaction("Loading your transaction ...")
             createTransactionAsDescribed()
             setTransactionPopUp(false);
             setDisabled(false)
+            setTransactionDetails("")
             toast.current.show({ severity: 'info', summary: 'Transaction processing...', detail: "Please wait a few seconds while the transaction is being created" , life:5000});
         }
     }
+
+    const header = renderHeader();
 
   return (
     <div className='card'>
@@ -112,7 +125,9 @@ const Interact = () => {
                                 </div>
                                     <hr/>
                                     <pre className='text-left'>
-                                        <span className="block  font-medium mb-6">{completeTransaction}</span>
+                                        <div className="card">
+                                            <Editor value={completeTransaction} onTextChange={(e) => {setTransactionCode(e.textValue)}} headerTemplate={header} style={{ height: '320px' }} />
+                                        </div>
                                     </pre>
                                     <hr/>
                                     <Button
@@ -121,6 +136,9 @@ const Interact = () => {
                                     label="Execute Transaction"
                                     className="w-full flex align-items-center justify-content-center mr-2"
                                     disabled={disabled}
+                                    onClick={()=>
+                                        setTimeout(() =>{toast.current.show({ severity: 'error', summary: 'Failed to execute', detail: "Failed to execute the transaction" , life:5000});}, 300)
+                                    }
                                     raised/>
                             </div>
                         </div>
