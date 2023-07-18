@@ -134,7 +134,6 @@ const Deploy = () => {
           console.log("response: ", data);
           if (data.result === "OK"){
             setStatus("Deploying contract!!!");
-
             setRenderState("Done");
             setActiveIndex(2);
             setDeploying(false);
@@ -142,7 +141,10 @@ const Deploy = () => {
             toast.current.show({ severity: 'success', summary: 'Success', detail: "Your Ricardian contract has been successfully deployed" , life:5000});
           } else{
             setStatus("Deploying contract!!!");
-            toast.current.show({ severity: 'error', summary: 'Error', detail: "An error occured during the deployement of the contract" , life:5000});
+            setRenderState("Done");
+            setActiveIndex(2);
+            setDeploying(false);
+            toast.current.show({ severity: 'warn', summary: 'Error', detail: "An error occured during the deployement of the contract" , life:7000});
           }
         })
         
@@ -367,4 +369,3 @@ const Deploy = () => {
 };
 
 export default Deploy;
-
