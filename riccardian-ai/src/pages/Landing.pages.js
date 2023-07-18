@@ -45,9 +45,9 @@ const Landingpage = () => {
           <section>
             {/* <Toast ref={toast} /> */}
             <ConfirmDialog />
-            <span className="block text-6xl font-bold mb-1">RiccardianAI</span>
+            <span className="block text-6xl font-bold mb-1">RicardianAI</span>
             <div className="text-6xl text-primary font-bold mb-3">Legally Binding Smart Contracts</div>
-            <p className="mt-0 mb-4 text-700 line-height-3">Riccardian AI converts ordinary legal contracts into smart contracts and enforces them using AI technology.</p>
+            <p className="mt-0 mb-4 text-700 line-height-3">Ricardian AI converts ordinary legal contracts into smart contracts and enforces them using AI technology.</p>
 
             <Button label="Get started" type="button" className="mr-3 p-button-raised" onClick={GetStartedEvent}/>
             <Button label="Watch Demo" type="button" className="p-button-outlined" icon="pi pi-external-link" onClick={() => setVisible(true)} />
@@ -69,14 +69,14 @@ const Landingpage = () => {
           <span className="text-900">Bringing, </span>
           <span className="text-blue-600">The AI into blockchain</span>
         </div>
-        <div className="text-700 mb-6">RiccardianAI makes it easy to leagally bind smartcontract's</div>
+        <div className="text-700 mb-6">RicardianAI makes it easy to leagally bind smartcontract's</div>
         <div className="grid">
           <div className="col-12 md:col-4 mb-4 px-5">
             <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
               <i className="pi pi-desktop text-4xl text-blue-500"></i>
             </span>
             <div className="text-900 text-xl mb-3 font-medium">Simple UI</div>
-            <span className="text-700 line-height-3">Riccardian AI has a very clean and easy-to-use user interface.</span>
+            <span className="text-700 line-height-3">Ricardian AI has a very clean and easy-to-use user interface.</span>
           </div>
           <div className="col-12 md:col-4 mb-4 px-5">
             <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
@@ -97,21 +97,21 @@ const Landingpage = () => {
                     <i className="pi pi-globe text-4xl text-blue-500"></i>
                 </span>
                 <div className="text-900 text-xl mb-3 font-medium">Fast & Global Support</div>
-                <span className="text-700 line-height-3">RiccardianAI is open to users around the globe</span>
+                <span className="text-700 line-height-3">RicardianAI is open to users around the globe</span>
             </div>
           <div className="col-12 md:col-4 mb-4 px-5">
             <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
               <i className="pi pi-github text-4xl text-blue-500"></i>
             </span>
             <div className="text-900 text-xl mb-3 font-medium">Open Source</div>
-            <span className="text-700 line-height-3">Riccardian AI is an open source project. Feel free to check out the GitHub Repository.</span>
+            <span className="text-700 line-height-3">Ricardian AI is an open source project. Feel free to check out the GitHub Repository.</span>
           </div>
           <div className="col-12 md:col-4 md:mb-4 mb-0 px-3">
             <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
               <i className="pi pi-shield text-4xl text-blue-500"></i>
             </span>
             <div className="text-900 text-xl mb-3 font-medium">Trusted Security</div>
-            <span className="text-700 line-height-3">Riccardian AI is secure and trustworthy.</span>
+            <span className="text-700 line-height-3">Ricardian AI is secure and trustworthy.</span>
           </div>
         </div>
       </div>
@@ -122,8 +122,8 @@ const Landingpage = () => {
       <div className="surface-0 text-700 text-center">
         <div className="text-blue-600 font-bold mb-3"><i className="pi pi-github"></i>&nbsp;POWERED BY GITHUB</div>
         <div className="text-900 font-bold text-5xl mb-3">Feel free and view the code on Github</div>
-        <div className="text-700 text-2xl mb-5">Riccardian AI's codebase is open source. Click the button below and go check it out.</div>
-        <a href='https://github.com/IKalonji/RiccardianAI' target='_blank' rel='noopener noreferrer'>
+        <div className="text-700 text-2xl mb-5">Ricardian AI's codebase is open source. Click the button below and go check it out.</div>
+        <a href='https://github.com/IKalonji/RicardianAI' target='_blank' rel='noopener noreferrer'>
           <Button label="View the Repo" icon="pi pi-github" className="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap" />
         </a>
       </div>
