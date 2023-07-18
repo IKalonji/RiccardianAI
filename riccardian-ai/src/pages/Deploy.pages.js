@@ -180,23 +180,25 @@ const Deploy = () => {
         <div style={{ height: 335 }}></div>
 
         <div className="">
-          <div className="flex flex-column justify-content-center gap-300">
-            <div className="col-12 flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
-              <div className="col-12 surface-card p-7  border-round w-full lg:w-5">
-                <div className="align-self-start p-3 h-full">
-                  <div className=" shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
-                    <div className="text-center text-900 font-medium text-xl mb-2">Your input contract</div>
-                    <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
-                    <pre>
-                      <Editor headerTemplate={HumanReadableHeader} value={contract} readOnly style={{ height: '320px' }} />
-                    </pre>
-                    <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
+          <div className="grid">
+
+            <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
+            
+                <div className="col-12 surface-card p-3  border-round w-full lg:w-5">
+                  <div className="p-3 h-full">
+                    <div className=" shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
+                      <div className="text-center text-900 font-medium text-xl mb-2">Your input contract</div>
+                      <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
+                      <pre>
+                        <Editor headerTemplate={HumanReadableHeader} value={contract} readOnly style={{ height: '320px' }} />
+                      </pre>
+                      <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="col-12 surface-card p-4 border-round bg-primary w-full lg:w-5">
-                <div className="align-self-end p-3 h-full">
+              <div className="col-12 surface-card p-3 border-round w-full lg:w-5">
+                <div className="p-3 h-full">
                   <div className="shadow-2 p-3 flex flex-column" style={{ borderRadius: '6px' }}>
                     <div className="text-center text-900 font-medium text-xl mb-2">AI Generated Riccardian contract</div>
                     <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
