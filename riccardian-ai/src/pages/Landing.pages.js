@@ -123,7 +123,7 @@ const Landingpage = () => {
         <div className="text-blue-600 font-bold mb-3"><i className="pi pi-github"></i>&nbsp;POWERED BY GITHUB</div>
         <div className="text-900 font-bold text-5xl mb-3">Feel free and view the code on Github</div>
         <div className="text-700 text-2xl mb-5">Ricardian AI's codebase is open source. Click the button below and go check it out.</div>
-        <a href='https://github.com/IKalonji/RicardianAI' target='_blank' rel='noopener noreferrer'>
+        <a href='https://github.com/IKalonji/RiccardianAI' target='_blank' rel='noopener noreferrer'>
           <Button label="View the Repo" icon="pi pi-github" className="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap" />
         </a>
       </div>
