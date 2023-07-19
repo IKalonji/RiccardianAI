@@ -83,7 +83,7 @@ const Deploy = () => {
             setStatus("Creating the user...");
           } else{
             setStatus("Creating the user...");
-            toast.current.show({ severity: 'error', summary: 'Error', detail: "An error occured while creating the workspace" , life:5000});
+            toast.current.show({ severity: 'warn', summary: 'Error', detail: "An error occured while creating the workspace" , life:5000});
           }
         })
   
@@ -96,7 +96,7 @@ const Deploy = () => {
             setStatus("Creating workspace...");
           } else{
             setStatus("Creating workspace...");
-            toast.current.show({ severity: 'error', summary: 'Error', detail: "An error occured while creating the workspace" , life:5000});
+            toast.current.show({ severity: 'warn', summary: 'Error', detail: "An error occured while creating the workspace" , life:5000});
           }
         })
   
@@ -109,7 +109,7 @@ const Deploy = () => {
               setStatus("Creating files...");
             } else{
               setStatus("Creating files...");
-              toast.current.show({ severity: 'error', summary: 'Error', detail: "An error occured whilst adding the contents to the file" , life:5000});
+              toast.current.show({ severity: 'warn', summary: 'Error', detail: "An error occured whilst adding the contents to the file" , life:5000});
             }
           })
         
@@ -122,7 +122,7 @@ const Deploy = () => {
             setStatus("Adding to file...");
           } else{
             setStatus("Adding to file...");
-            toast.current.show({ severity: 'error', summary: 'Error', detail: "An error occured whilst adding the contents to the file" , life:5000});
+            toast.current.show({ severity: 'warn', summary: 'Error', detail: "An error occured whilst adding the contents to the file" , life:5000});
           }
           
         })
