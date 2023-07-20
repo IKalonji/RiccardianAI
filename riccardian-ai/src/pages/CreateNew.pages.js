@@ -8,15 +8,14 @@ import { Toast } from 'primereact/toast';
 
 const CreateNew = () => {
     const [visible, setVisible] = useState(false);
-    const [enabled, setEnabled] = useState(true);
     const [loading, setLoading] = useState(false);
+    const [cancontinue, setCanContinue] = useState(false)
     const toast = useRef(null);
     const [editorText, setEditorText] = useState('');
     const navigate = useNavigate()
 
     const ConvertToSmartContract = () => {
-        
-        setLoading(true);
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -26,21 +25,28 @@ const CreateNew = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log("response: ", data.response);
+            
             localStorage.setItem("GeneratedContract", data.response);
-            setEnabled(false)
+            
             setLoading(false); // Set loading state to false after fetch is done
           });
       };
 
       const footerContent = (
         <div>
-          {loading ? (
+          {
+            !cancontinue ?(
+              <Button label="Save" icon="pi pi-arrow-circle-right" onClick={() => { setCanContinue(true); setLoading(true) }} raised/>
+            ):
+          loading ? (
             <div className="p-d-flex p-ai-center p-jc-center">
               <i className="pi pi-spin pi-spinner text-blue-500" style={{ fontSize: '2rem', marginRight: '0.5rem' }}></i>
               <span>Your smart contract is on the way...</span>
             </div>
-          ) : (
-            <Button label="Continue" icon="pi pi-arrow-circle-right" disabled={enabled} onClick={() => { setVisible(false); navigate("/start-deployement") }} text raised autoFocus />
+          ) : !loading ? (
+            <Button label="Continue" icon="pi pi-arrow-circle-right" onClick={() => {localStorage.setItem("Contract", `${editorText}`); setVisible(false); navigate("/start-deployement") }} text raised autoFocus />
+          ) :(
+            <Button label="Continue" icon="pi pi-arrow-circle-right" onClick={() => {localStorage.setItem("Contract", `${editorText}`); setVisible(false); navigate("/start-deployement") }} text raised autoFocus />
           )}
         </div>
       );
@@ -54,8 +60,16 @@ const CreateNew = () => {
           </span>
         );
       };
-    
+
+      const reviewHeader = () => {
+        return (
+          <span className="ql-formats">
+            <button className="ql-bold" aria-label="Bold"></button>
+          </span>
+        );
+      };
       const header = renderHeader();
+      const review = reviewHeader();
 
       const CheckEditorcontent = async (event) => {
         if (!editorText){
@@ -71,16 +85,16 @@ const CreateNew = () => {
       
     return (
         <div>
-            <div style={{height:"25px"}}> </div>
-        <Toast ref={toast}></Toast>
-        <pre>
-        <Dialog header="Click continue to deploy your contract when the button is enabled" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
-            <h4 className="m-0">
-                <pre>{editorText}</pre>
-            </h4>
-        </Dialog>
-        </pre>
-          
+
+          <div style={{height:"25px"}}> </div>
+          <Toast ref={toast}></Toast>
+
+          <Dialog header="Click continue to deploy your contract when the button is enabled" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
+            <pre>
+              <Editor value={editorText} onTextChange={(e) => {setEditorText(e.textValue)}} headerTemplate={review} style={{ height: '320px' }}/>
+            </pre>
+          </Dialog>
+
           <div className="flex align-items-center justify-content-center">
             <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
                 <div className="text-center mb-5">

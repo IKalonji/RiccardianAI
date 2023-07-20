@@ -38,53 +38,28 @@ export class AppStateService {
       window.dispatchEvent(event);
     }
 
-    async connectToMetamask(){
+    async connectToMetaMask() {
+      try {
         if(!this.ethereum){
-            alert("Please install Metamask and configure Hedera Testnet")
-            throw Error("Metamask not installed");
-        }
-        const chainId = await this.ethereum.request({ method: 'eth_chainId' });
-        if(chainId !== '0x128'){
-            try {
-                await this.ethereum.request({
-                  method: 'wallet_switchEthereumChain',
-                  params: [{ chainId: '0x128' }] // chainId must be in hexadecimal numbers
-                });
-              } catch (error) {
-                if (error.code === 4902) {
-                  try {
-                    await this.ethereum.request({
-                      method: 'wallet_addEthereumChain',
-                      params: [
-                        {
-                          chainName: 'Hedera Testnet',
-                          chainId: '0x128',
-                          nativeCurrency: {
-                            name: 'HBAR',
-                            symbol: 'HBAR',
-                            decimals: 18
-                          },
-                          rpcUrls: ['https://testnet.hashio.io/api']
-                        },
-                      ],
-                    });
-                  } catch (addError) {
-                    console.error(addError);
-                  }
-                }
-                console.error(error);
-              }
-        }
-        //connect
-        this.ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
-        this.walletAddress = data[0];
-        this.connected = true;
+          alert("Please install Metamask and configure Hedera Testnet")
+          throw Error("Metamask not installed");
+      }
+
+        const accounts = await this.ethereum.request({ method: 'eth_requestAccounts' });
+        alert(`Connected to: ${accounts[0]}`);
+        this.walletAddress = accounts[0];
+        this.walletConnected = true;
+
         const event = new Event("loggedIn");
         window.dispatchEvent(event);
-        this.contractIsUserMemeber();       
-        }).catch((error) => {
-            alert("Could not connect: ", error)
-        })
+        return true;
+        
+      } catch (error) {
+        alert("Could not connect to wallet.");
+        console.log(error);
+        return false;
+      }
+
 
 
     }

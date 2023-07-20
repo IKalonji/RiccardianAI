@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { json, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Steps } from 'primereact/steps';
 import { Toast } from 'primereact/toast';
+
 import Confetti from 'react-confetti';
 import { Button } from 'primereact/button';
 import { Editor } from "primereact/editor";
+import { InputTextarea } from 'primereact/inputtextarea';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { AppStateService } from '../AppstateService/AppState.service';
 
@@ -13,10 +15,13 @@ const Deploy = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [deploying, setDeploying] = useState(false);
   const [renderState, setRenderState] = useState(null);
-  const [contractName, setContractName] = useState("");
+  const [argument, setArgument] = useState('')
   const [status, setStatus] = useState("");
   const [value, setValue] = useState('');
+  let argsArray = []
 
   const contract = localStorage.getItem("Contract");
   const generatedContract = localStorage.getItem("GeneratedContract");
@@ -24,18 +29,9 @@ const Deploy = () => {
   const navigate = useNavigate()
   const service = new AppStateService();
 
-  const [visible, setVisible] = useState(true);
-
-  const [deploying, setDeploying] = useState(false);
-
   useEffect(() => {
-        
     if (deploying) {
-      setTimeout(()=> {
-        FetchingBeforeDeployment();
-
-      }, 9000)
-        return
+      FetchingBeforeDeployment();
     }
     }, [deploying]);
 
@@ -64,11 +60,11 @@ const Deploy = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({user: service.walletAddress, workspace: "ricardian", folder: "contracts", file: "test_contract.cdc", contents: `${generatedContract}` })
       };
-  
+     
       const deployContract = {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user: service.walletAddress, workspace: "ricardian", account_name: 'emulator', network: "emulator", file: "test_contract.cdc"
+        body: JSON.stringify({ user: service.walletAddress, workspace: "ricardian", account_name: 'emulator-account', network: "emulator", file: "test_contract.cdc", args: argsArray
         })
       };
 
@@ -83,7 +79,7 @@ const Deploy = () => {
             setStatus("Creating the user...");
           } else{
             setStatus("Creating the user...");
-            toast.current.show({ severity: 'warn', summary: 'Error', detail: "An error occured while creating the workspace" , life:5000});
+            toast.current.show({ severity: 'warn', summary: 'Warning', detail: "An error occured while creating the workspace" , life:5000});
           }
         })
   
@@ -96,7 +92,7 @@ const Deploy = () => {
             setStatus("Creating workspace...");
           } else{
             setStatus("Creating workspace...");
-            toast.current.show({ severity: 'warn', summary: 'Error', detail: "An error occured while creating the workspace" , life:5000});
+            toast.current.show({ severity: 'warn', summary: 'Warning', detail: "An error occured while creating the workspace" , life:5000});
           }
         })
   
@@ -109,7 +105,7 @@ const Deploy = () => {
               setStatus("Creating files...");
             } else{
               setStatus("Creating files...");
-              toast.current.show({ severity: 'warn', summary: 'Error', detail: "An error occured whilst adding the contents to the file" , life:5000});
+              toast.current.show({ severity: 'warn', summary: 'Warning', detail: "An error occured whilst adding the contents to the file" , life:5000});
             }
           })
         
@@ -122,7 +118,7 @@ const Deploy = () => {
             setStatus("Adding to file...");
           } else{
             setStatus("Adding to file...");
-            toast.current.show({ severity: 'warn', summary: 'Error', detail: "An error occured whilst adding the contents to the file" , life:5000});
+            toast.current.show({ severity: 'warn', summary: 'Warning', detail: "An error occured whilst adding the contents to the file" , life:5000});
           }
           
         })
@@ -137,14 +133,14 @@ const Deploy = () => {
             setRenderState("Done");
             setActiveIndex(2);
             setDeploying(false);
-
             toast.current.show({ severity: 'success', summary: 'Success', detail: "Your Ricardian contract has been successfully deployed" , life:5000});
           } else{
+
             setStatus("Deploying contract!!!");
-            setRenderState("Done");
-            setActiveIndex(2);
-            setDeploying(false);
-            toast.current.show({ severity: 'warn', summary: 'Error', detail: "An error occured during the deployement of the contract" , life:7000});
+            // setRenderState("Done");
+            // setActiveIndex(2);
+            // setDeploying(false);
+            toast.current.show({ severity: 'error', summary: 'Warning', detail: "An error occured during the deployement of the contract" , life:17000});
           }
         })
         
@@ -226,6 +222,7 @@ const Deploy = () => {
           onClick={() => {
             setActiveIndex(1);
             setRenderState("Deploying");
+            localStorage.setItem("GeneratedContract", generatedContract)
           }} />
       </div>
     );
@@ -235,46 +232,35 @@ const Deploy = () => {
     console.log("second step");
 
     const handleButtonClick = () => {
-      setDeploying(true);
+      if (!argument){
+        toast.current.show({ severity: 'info', summary: 'Arguments empty', detail: `array: ${argsArray}` , life:5000});
+        setDeploying(true);
+
+      }else {
+        let splitValues = argument.split(",")
+
+        splitValues.forEach(element => {
+          argsArray.push(element.trim())      
+        });
+        toast.current.show({ severity: 'info', summary: 'Arguments set', detail: `array: ${argsArray}` , life:5000});
+        setDeploying(true);
+      }
+
+
     };
 
     return (
-      <div className='card'>
-        <div style={{ height: "170px" }}></div>
+      <div className='flex flex-column'>
+        
+        <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
+          <Button
+            label="Start deploying"
+            className="mr-2"
+            onClick={handleButtonClick}
+            text
+            raised/>
+          </div>
 
-        {deploying ? (
-          <>
-            <div className='flex flex-column'>
-            <div className='flex align-items-center justify-content-center h-4rem font-bold border-round m-2'>
-              <div className="text-900 text-3xl font-medium mb-3">Contract being deployed on FlowDE version 1.</div>
-              </div>
-              <div className='flex align-items-center justify-content-center h-4rem font-bold border-round m-2'>
-                <ProgressSpinner style={{ width: '150px', height: '50px' }} strokeWidth="8" animationDuration=".5s" />
-
-              </div>
-            </div>
-
-            <br />
-            <div className="">
-              <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">{status}</div>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="flex flex-column">
-              <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">
-
-                <Button
-                  label="Start deploying"
-                  className="mr-2"
-                  onClick={handleButtonClick}
-                  text
-                  raised
-                />
-              </div>
-            </div>
-          </>
-        )}
       </div>
     );
   };
@@ -345,6 +331,7 @@ const Deploy = () => {
       <div className="card">
         <Toast ref={toast}></Toast>
         <Steps
+          readOnly={false}
           model={items}
           activeIndex={activeIndex}
           onSelect={(e) => setActiveIndex(e.index)} />
@@ -356,7 +343,51 @@ const Deploy = () => {
           {activeIndex === 0 && renderState === 'Contracts' ? (
             <ContractsStep />
           ) : activeIndex === 1 && renderState === 'Deploying' ? (
-            <DeployingStep />
+            <>
+              
+        {deploying ? (
+          <>
+            <div className='flex flex-column'>
+            <div className='flex align-items-center justify-content-center h-4rem font-bold border-round m-2'>
+              <div className="text-900 text-3xl font-medium mb-3">Contract being deployed on FlowDE version 1.</div>
+              </div>
+              <div className='flex align-items-center justify-content-center h-4rem font-bold border-round m-2'>
+                <ProgressSpinner style={{ width: '150px', height: '50px' }} strokeWidth="8" animationDuration=".5s" />
+              </div>
+            </div>
+
+            <br />
+            <div className="">
+              <div className="flex align-items-center justify-content-center h-4rem font-bold border-round m-2">{status}</div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex flex-column">
+              <div className="flex align-items-center justify-content-center font-bold border-round m-2">
+
+                <div className="text-900 text-2xl font-medium mb-5">
+                  Enter the arguments of your smart contract below (seperate arguments with a comma )
+                </div>
+                
+              </div>
+
+            <div className="flex align-items-center justify-content-center font-bold border-round m-2">
+              <InputTextarea
+                onChange={(e) => {setArgument(e.target.value)}}
+                placeholder='Enter your Arguments here' 
+                rows={5} cols={10} 
+                autoFocus 
+                style={{width:"45%"}}/>
+            </div>
+            
+              
+            </div>
+          </>
+        )}
+
+              <DeployingStep />
+            </>
           ) : activeIndex === 2 && renderState === 'Done' ? (
             <DoneStep />
           ) : (
