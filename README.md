@@ -1,16 +1,16 @@
 # RiccardianAI fast tracking the evolution of law 3.0
 
-Welcome to RiccardianAI, an innovative project that transforms ordinary legal contracts into Cadence smart contracts for the Flow blockchain. Our goal is to streamline the process of converting traditional legal agreements into secure and efficient smart contracts, leveraging the power of artificial intelligence and the Flow blockchain. In this README, we will provide you with an overview of the project, including its problem statement, solution, frontend, backend, and future development plans.
+Welcome to RiccardianAI, an innovative project that transforms ordinary legal contracts into Solidity and Cadence smart contracts for the Moonbeam (Moonbase testnet) and Flow emulator blockchain. Our goal is to streamline the process of converting traditional legal agreements into secure and efficient smart contracts, leveraging the power of artificial intelligence and the Moonbeam (Moonbase testnet) and Flow emulator blockchain. In this README, we will provide you with an overview of the project, including its problem statement, solution, frontend, backend, and future development plans.
 
 ## Problem
 
-Traditional legal contracts are often complex, time-consuming to draft, and prone to human error. They require extensive manual review and can be challenging to enforce. Moreover, migrating these contracts to a blockchain network like Flow usually involves a significant amount of manual labor and expertise in smart contract development. This creates a barrier for businesses and individuals who wish to leverage the advantages of blockchain technology in their contractual agreements.
+Traditional legal contracts are often complex, time-consuming to draft, and prone to human error. They require extensive manual review and can be challenging to enforce. Moreover, migrating these contracts to a blockchain network like Moonbeam (Moonbase testnet) and Flow emulator usually involves a significant amount of manual labor and expertise in smart contract development. This creates a barrier for businesses and individuals who wish to leverage the advantages of blockchain technology in their contractual agreements.
 
 ## Solution - RiccardianAI
 
-RiccardianAI is an AI-powered solution that automates the conversion of legal contracts into Cadence smart contracts compatible with the Flow blockchain. By utilizing advanced natural language processing and machine learning techniques, RiccardianAI intelligently analyzes and extracts key contract clauses, terms, and conditions. It then generates secure and reliable smart contracts, saving time and minimizing the risk of human error.
+RiccardianAI is an AI-powered solution that automates the conversion of legal contracts into Solidity and Cadence smart contracts compatible with the Moonbeam (Moonbase testnet) and Flow emulator blockchain. By utilizing advanced natural language processing and machine learning techniques, RiccardianAI intelligently analyzes and extracts key contract clauses, terms, and conditions. It then generates secure and reliable smart contracts, saving time and minimizing the risk of human error.
 
-To deploy the AI-generated smart contracts on the Flow blockchain, we leverage FlowDe, an integrated development environment (IDE) specifically designed for Flow. FlowDe simplifies the process of writing, deploying, and interacting with Cadence smart contracts, providing a seamless user experience for RiccardianAI users.
+To deploy the AI-generated smart contracts on the Moonbeam (Moonbase testnet) and Flow emulator blockchain, we leverage FlowDe, an integrated development environment (IDE) specifically designed for Flow. FlowDe simplifies the process of writing, deploying, and interacting with Solidity and Cadence smart contracts, providing a seamless user experience for RiccardianAI users.
 
 ## Frontend
 
@@ -36,10 +36,10 @@ Although the current UI/UX of RiccardianAI is designed to be intuitive and user-
 
 ### Overall Improvements
 
-We believe in constantly striving for excellence. To ensure the long-term success and effectiveness of RiccardianAI, we will actively seek feedback from users and industry experts. We will closely monitor the latest advancements in both legal and blockchain technologies and incorporate them into our solution. Through continuous iteration and innovation, we aim to make RiccardianAI the leading platform for transforming legal contracts into smart contracts on the Flow blockchain.
+We believe in constantly striving for excellence. To ensure the long-term success and effectiveness of RiccardianAI, we will actively seek feedback from users and industry experts. We will closely monitor the latest advancements in both legal and blockchain technologies and incorporate them into our solution. Through continuous iteration and innovation, we aim to make RiccardianAI the leading platform for transforming legal contracts into smart contracts on the Moonbeam (Moonbase testnet) and Flow emulator blockchain.
 
 ---
 
 We appreciate your interest in RiccardianAI and thank you for taking the time to read our README. If you have any questions or suggestions, please feel free to reach out to our team. Happy hacking!
 
-*Note: The project FlowDe mentioned in this README is a separate submission to the hackathon, and RiccardianAI leverages FlowDe for the deployment of AI-generated smart contracts on the Flow blockchain.*
+*Note: The project FlowDe mentioned in this README is a separate submission to the hackathon, and RiccardianAI leverages FlowDe for the deployment of AI-generated smart contracts on the Moonbeam (Moonbase testnet) and Flow emulator blockchain.*
